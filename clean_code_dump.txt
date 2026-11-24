@@ -1,0 +1,3905 @@
+﻿==================== FILE: README.md ====================
+# ClubHub UA — Платформа спільнот і клубних подій (Варіант 14)
+
+## Запуск сервера
+cd Server
+dotnet run
+
+## Запуск клієнта
+cd client
+npm install
+npm start
+
+## Тестові акаунти
+- Учасник: user@club.ua / User12345!
+- Учасниця: maria@club.ua / User12345!
+- Організатор: organizer@club.ua / Organizer123!
+- Модератор: moderator@club.ua / Moderator123!
+
+
+==================== FILE: client\angular.json ====================
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "cli": {
+    "packageManager": "npm"
+  },
+  "newProjectRoot": "projects",
+  "projects": {
+    "client": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "src/main.ts",
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
+            ],
+            "styles": [
+              "src/styles.css"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "client:build:production"
+            },
+            "development": {
+              "buildTarget": "client:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test"
+        }
+      }
+    }
+  }
+}
+
+
+==================== FILE: client\package.json ====================
+{
+  "name": "client",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --proxy-config proxy.conf.json",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
+  },
+  "private": true,
+  "packageManager": "npm@11.9.0",
+  "dependencies": {
+    "@angular/common": "^21.2.0",
+    "@angular/compiler": "^21.2.0",
+    "@angular/core": "^21.2.0",
+    "@angular/forms": "^21.2.0",
+    "@angular/platform-browser": "^21.2.0",
+    "@angular/router": "^21.2.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^21.2.31",
+    "@angular/cli": "^21.2.31",
+    "@angular/compiler-cli": "^21.2.0",
+    "jsdom": "^28.0.0",
+    "prettier": "^3.8.1",
+    "typescript": "~5.9.2",
+    "vitest": "^4.0.8"
+  }
+}
+
+
+==================== FILE: client\proxy.conf.json ====================
+{"/api":{"target":"http://localhost:5000","secure":false,"changeOrigin":true}}
+
+==================== FILE: client\README.md ====================
+# ClubHub UA — Платформа спільнот і клубних подій (Варіант 14)
+
+## Запуск сервера
+cd Server
+dotnet run
+
+## Запуск клієнта
+cd client
+npm install
+npm start
+
+## Тестові акаунти
+- Учасник: user@club.ua / User12345!
+- Учасниця: maria@club.ua / User12345!
+- Організатор: organizer@club.ua / Organizer123!
+- Модератор: moderator@club.ua / Moderator123!
+
+
+==================== FILE: client\tsconfig.app.json ====================
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "types": []
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "src/**/*.spec.ts"
+  ]
+}
+
+
+==================== FILE: client\tsconfig.json ====================
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "preserve"
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
+}
+
+
+==================== FILE: client\tsconfig.spec.json ====================
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec",
+    "types": [
+      "vitest/globals"
+    ]
+  },
+  "include": [
+    "src/**/*.d.ts",
+    "src/**/*.spec.ts"
+  ]
+}
+
+
+==================== FILE: client\.vscode\extensions.json ====================
+{
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=827846
+  "recommendations": ["angular.ng-template"]
+}
+
+
+==================== FILE: client\.vscode\launch.json ====================
+{
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "ng serve",
+      "type": "chrome",
+      "request": "launch",
+      "preLaunchTask": "npm: start",
+      "url": "http://localhost:4200/"
+    },
+    {
+      "name": "ng test",
+      "type": "chrome",
+      "request": "launch",
+      "preLaunchTask": "npm: test",
+      "url": "http://localhost:9876/debug.html"
+    }
+  ]
+}
+
+
+==================== FILE: client\.vscode\mcp.json ====================
+{
+  // For more information, visit: https://angular.dev/ai/mcp
+  "servers": {
+    "angular-cli": {
+      "command": "npx",
+      "args": ["-y", "@angular/cli", "mcp"]
+    }
+  }
+}
+
+
+==================== FILE: client\.vscode\tasks.json ====================
+{
+  // For more information, visit: https://go.microsoft.com/fwlink/?LinkId=733558
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "start",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "typescript",
+        "pattern": "$tsc",
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": {
+            "regexp": "Changes detected"
+          },
+          "endsPattern": {
+            "regexp": "bundle generation (complete|failed)"
+          }
+        }
+      }
+    },
+    {
+      "type": "npm",
+      "script": "test",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "typescript",
+        "pattern": "$tsc",
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": {
+            "regexp": "Changes detected"
+          },
+          "endsPattern": {
+            "regexp": "bundle generation (complete|failed)"
+          }
+        }
+      }
+    }
+  ]
+}
+
+
+==================== FILE: client\src\index.html ====================
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Client</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>
+
+
+==================== FILE: client\src\main.ts ====================
+import { bootstrapApplication } from '@angular/platform-browser';
+import { appConfig } from './app/app.config';
+import { App } from './app/app';
+
+bootstrapApplication(App, appConfig)
+  .catch((err) => console.error(err));
+
+
+==================== FILE: client\src\styles.css ====================
+:root {
+  --bg: #f1f5f9;
+  --surface: #ffffff;
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-light: #eef2ff;
+  --accent: #0ea5e9;
+  --text: #0f172a;
+  --muted: #475569;
+  --border: #cbd5e1;
+  --shadow-sm: 0 2px 6px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 14px 30px -6px rgba(15, 23, 42, 0.1), 0 8px 12px -6px rgba(15, 23, 42, 0.05);
+  --success-bg: #dcfce7;
+  --success-text: #166534;
+  --warn-bg: #fef3c7;
+  --warn-text: #92400e;
+  --danger-bg: #fee2e2;
+  --danger-text: #991b1b;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  font-size: 17.5px;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: var(--text);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  background-color: #eef2f6;
+  background-image:
+    radial-gradient(at 8% 12%, rgba(79, 70, 229, 0.12) 0px, transparent 42%),
+    radial-gradient(at 92% 18%, rgba(14, 165, 233, 0.14) 0px, transparent 45%),
+    radial-gradient(at 85% 85%, rgba(124, 58, 237, 0.10) 0px, transparent 45%),
+    radial-gradient(#cbd5e1 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 26px 26px;
+  background-attachment: fixed;
+}
+
+app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a { color: var(--primary); text-decoration: none; transition: color 0.15s ease; }
+a:hover { color: var(--primary-hover); }
+
+:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.container {
+  width: 92%;
+  max-width: 1720px;
+  margin: 0 auto;
+  padding: 1.4rem 1rem;
+}
+
+main.container {
+  flex: 1;
+}
+
+/* РќР°РІС–РіР°С†С–СЏ */
+.navbar {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+}
+
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: var(--text) !important;
+  letter-spacing: -0.02em;
+}
+
+.brand-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #4f46e5, #0ea5e9);
+  color: #fff;
+  font-size: 1.45rem;
+}
+
+.nav-link {
+  padding: 0.5rem 0.95rem;
+  border-radius: 10px;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.15s ease;
+}
+.nav-link:hover { background: #f1f5f9; color: var(--text); }
+.active-link { background: var(--primary-light); color: var(--primary) !important; }
+
+/* Hero-Р±Р°РЅРµСЂ Р· С–Р»СЋСЃС‚СЂР°С†С–С”СЋ */
+.hero-banner {
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 48%, #0284c7 100%);
+  color: #ffffff;
+  border-radius: 22px;
+  padding: 2.5rem 2.75rem;
+  margin-bottom: 1.6rem;
+  box-shadow: var(--shadow-md);
+  display: grid;
+  grid-template-columns: 1.35fr 0.85fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.hero-banner h1 {
+  margin: 0 0 0.65rem;
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.hero-banner p {
+  margin: 0;
+  color: #e0e7ff;
+  max-width: 680px;
+  font-size: 1.05rem;
+}
+
+.hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 1.5rem;
+}
+
+.stat-pill {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* РџР»РёС‚РєРё РєР°С‚РµРіРѕСЂС–Р№ */
+.cat-pills {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.4rem;
+}
+
+.cat-tile {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.15s ease;
+}
+
+.cat-tile:hover, .cat-tile.active {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.cat-tile-icon {
+  font-size: 1.9rem;
+  line-height: 1;
+}
+
+/* РљР°СЂС‚РєРё */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.15rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.club-card {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.club-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.club-cover {
+  height: 105px;
+  padding: 1rem 1.35rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  color: #fff;
+}
+
+.cover-tech { background: linear-gradient(135deg, #2563eb, #06b6d4); }
+.cover-art { background: linear-gradient(135deg, #7c3aed, #ec4899); }
+.cover-sport { background: linear-gradient(135deg, #059669, #10b981); }
+.cover-science { background: linear-gradient(135deg, #d97706, #f59e0b); }
+
+.club-emoji {
+  position: relative;
+  z-index: 2;
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 2px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.1rem;
+  line-height: 1;
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.14);
+  margin-top: -32px;
+  margin-bottom: 0.85rem;
+}
+
+.club-body {
+  padding: 0 1.4rem 1.4rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 1.4rem;
+}
+
+/* РљРЅРѕРїРєРё */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 11px;
+  border: 1px solid transparent;
+  font-size: 0.96rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--primary);
+  color: #fff;
+  transition: all 0.15s ease;
+}
+.btn:hover:not(:disabled) { background: var(--primary-hover); transform: translateY(-1px); color: #fff; }
+.btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.btn-secondary { background: #fff; color: var(--text); border-color: var(--border); }
+.btn-secondary:hover:not(:disabled) { background: #f8fafc; border-color: #94a3b8; color: var(--text); }
+.btn-danger { background: #dc2626; color: #fff; }
+.btn-danger:hover:not(:disabled) { background: #b91c1c; }
+.btn-sm { padding: 0.48rem 0.95rem; font-size: 0.88rem; border-radius: 9px; }
+
+/* Р‘РµР№РґР¶С– */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+.badge-glass { background: rgba(15, 23, 42, 0.55); color: #fff; backdrop-filter: blur(4px); }
+.badge-public { background: #e0e7ff; color: #3730a3; }
+.badge-private { background: #fae8ff; color: #86198f; }
+.badge-success { background: var(--success-bg); color: var(--success-text); }
+.badge-warn { background: var(--warn-bg); color: var(--warn-text); }
+.badge-danger { background: var(--danger-bg); color: var(--danger-text); }
+
+/* РџСЂРѕРіСЂРµСЃ-Р±Р°СЂ РјС–СЃС†СЊ */
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 0.55rem 0;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4f46e5, #0ea5e9);
+  border-radius: 999px;
+}
+.progress-full { background: linear-gradient(90deg, #d97706, #ef4444); }
+
+/* Р¤РѕСЂРјРё С‚Р° СЃРїРѕРІС–С‰РµРЅРЅСЏ */
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; font-weight: 600; margin-bottom: 0.35rem; font-size: 0.92rem; }
+.form-control {
+  width: 100%;
+  padding: 0.65rem 0.95rem;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  font-size: 0.96rem;
+  font-family: inherit;
+  background: #fff;
+}
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.alert {
+  padding: 0.9rem 1.2rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+.alert-error { background: var(--danger-bg); color: var(--danger-text); border: 1px solid #fca5a5; }
+.alert-success { background: var(--success-bg); color: var(--success-text); border: 1px solid #86efac; }
+.alert-info { background: #e0f2fe; color: #075985; border: 1px solid #7dd3fc; }
+
+.avatar-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 0.88rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.site-footer {
+  background: #0f172a;
+  color: #cbd5e1;
+  margin-top: 3rem;
+  padding: 1.85rem 0;
+  font-size: 0.92rem;
+}
+
+.flex-between { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.65rem; }
+.flex-gap { display: flex; flex-wrap: wrap; gap: 0.65rem; align-items: center; }
+.muted { color: var(--muted); font-size: 0.92rem; }
+
+@media (max-width: 960px) {
+  .hero-banner { grid-template-columns: 1fr; padding: 1.75rem; }
+  .hero-visual { display: none; }
+}
+@media (max-width: 768px) {
+  html { font-size: 16px; }
+  .container { width: 96%; }
+  .grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 380px) {
+  .container { width: 100%; padding: 0.75rem; }
+  .card { padding: 1rem; }
+}
+
+==================== FILE: client\src\app\app.config.ts ====================
+import { ApplicationConfig, provideZonelessChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { routes } from './app.routes';
+import { authInterceptor } from './interceptors/auth.interceptor';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideZonelessChangeDetection(),
+    provideRouter(routes),
+    provideHttpClient(withInterceptors([authInterceptor]))
+  ]
+};
+
+==================== FILE: client\src\app\app.css ====================
+
+==================== FILE: client\src\app\app.html ====================
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+<style>
+  :host {
+    --bright-blue: oklch(51.01% 0.274 263.83);
+    --electric-violet: oklch(53.18% 0.28 296.97);
+    --french-violet: oklch(47.66% 0.246 305.88);
+    --vivid-pink: oklch(69.02% 0.277 332.77);
+    --hot-red: oklch(61.42% 0.238 15.34);
+    --orange-red: oklch(63.32% 0.24 31.68);
+
+    --gray-900: oklch(19.37% 0.006 300.98);
+    --gray-700: oklch(36.98% 0.014 302.71);
+    --gray-400: oklch(70.9% 0.015 304.04);
+
+    --red-to-pink-to-purple-vertical-gradient: linear-gradient(
+      180deg,
+      var(--orange-red) 0%,
+      var(--vivid-pink) 50%,
+      var(--electric-violet) 100%
+    );
+
+    --red-to-pink-to-purple-horizontal-gradient: linear-gradient(
+      90deg,
+      var(--orange-red) 0%,
+      var(--vivid-pink) 50%,
+      var(--electric-violet) 100%
+    );
+
+    --pill-accent: var(--bright-blue);
+
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol";
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: block;
+    height: 100dvh;
+  }
+
+  h1 {
+    font-size: 3.125rem;
+    color: var(--gray-900);
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.125rem;
+    margin: 0;
+    font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol";
+  }
+
+  p {
+    margin: 0;
+    color: var(--gray-700);
+  }
+
+  main {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: inherit;
+    position: relative;
+  }
+
+  .angular-logo {
+    max-width: 9.2rem;
+  }
+
+  .content {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 3rem;
+  }
+
+  .content h1 {
+    margin-top: 1.75rem;
+  }
+
+  .content p {
+    margin-top: 1.5rem;
+  }
+
+  .divider {
+    width: 1px;
+    background: var(--red-to-pink-to-purple-vertical-gradient);
+    margin-inline: 0.5rem;
+  }
+
+  .pill-group {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+
+  .pill {
+    display: flex;
+    align-items: center;
+    --pill-accent: var(--bright-blue);
+    background: color-mix(in srgb, var(--pill-accent) 5%, transparent);
+    color: var(--pill-accent);
+    padding-inline: 0.75rem;
+    padding-block: 0.375rem;
+    border-radius: 2.75rem;
+    border: 0;
+    transition: background 0.3s ease;
+    font-family: var(--inter-font);
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.4rem;
+    letter-spacing: -0.00875rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .pill:hover {
+    background: color-mix(in srgb, var(--pill-accent) 15%, transparent);
+  }
+
+  .pill-group .pill:nth-child(6n + 1) {
+    --pill-accent: var(--bright-blue);
+  }
+  .pill-group .pill:nth-child(6n + 2) {
+    --pill-accent: var(--electric-violet);
+  }
+  .pill-group .pill:nth-child(6n + 3) {
+    --pill-accent: var(--french-violet);
+  }
+
+  .pill-group .pill:nth-child(6n + 4),
+  .pill-group .pill:nth-child(6n + 5),
+  .pill-group .pill:nth-child(6n + 6) {
+    --pill-accent: var(--hot-red);
+  }
+
+  .pill-group svg {
+    margin-inline-start: 0.25rem;
+  }
+
+  .social-links {
+    display: flex;
+    align-items: center;
+    gap: 0.73rem;
+    margin-top: 1.5rem;
+  }
+
+  .social-links path {
+    transition: fill 0.3s ease;
+    fill: var(--gray-400);
+  }
+
+  .social-links a:hover svg path {
+    fill: var(--gray-900);
+  }
+
+  @media screen and (max-width: 650px) {
+    .content {
+      flex-direction: column;
+      width: max-content;
+    }
+
+    .divider {
+      height: 1px;
+      width: 100%;
+      background: var(--red-to-pink-to-purple-horizontal-gradient);
+      margin-block: 1.5rem;
+    }
+  }
+</style>
+
+<main class="main">
+  <div class="content">
+    <div class="left-side">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 982 239"
+        fill="none"
+        class="angular-logo"
+      >
+        <g clip-path="url(#a)">
+          <path
+            fill="url(#b)"
+            d="M388.676 191.625h30.849L363.31 31.828h-35.758l-56.215 159.797h30.848l13.174-39.356h60.061l13.256 39.356Zm-65.461-62.675 21.602-64.311h1.227l21.602 64.311h-44.431Zm126.831-7.527v70.202h-28.23V71.839h27.002v20.374h1.392c2.782-6.71 7.2-12.028 13.255-15.956 6.056-3.927 13.584-5.89 22.503-5.89 8.264 0 15.465 1.8 21.684 5.318 6.137 3.518 10.964 8.673 14.319 15.382 3.437 6.71 5.074 14.81 4.992 24.383v76.175h-28.23v-71.92c0-8.019-2.046-14.237-6.219-18.819-4.173-4.5-9.819-6.791-17.102-6.791-4.91 0-9.328 1.063-13.174 3.272-3.846 2.128-6.792 5.237-9.001 9.328-2.046 4.009-3.191 8.918-3.191 14.728ZM589.233 239c-10.147 0-18.82-1.391-26.103-4.091-7.282-2.7-13.092-6.382-17.511-10.964-4.418-4.582-7.528-9.655-9.164-15.219l25.448-6.136c1.145 2.372 2.782 4.663 4.991 6.954 2.209 2.291 5.155 4.255 8.837 5.81 3.683 1.554 8.428 2.291 14.074 2.291 8.019 0 14.647-1.964 19.884-5.81 5.237-3.845 7.856-10.227 7.856-19.064v-22.665h-1.391c-1.473 2.946-3.601 5.892-6.383 9.001-2.782 3.109-6.464 5.645-10.965 7.691-4.582 2.046-10.228 3.109-17.101 3.109-9.165 0-17.511-2.209-25.039-6.545-7.446-4.337-13.42-10.883-17.757-19.474-4.418-8.673-6.628-19.473-6.628-32.565 0-13.091 2.21-24.301 6.628-33.383 4.419-9.082 10.311-15.955 17.839-20.7 7.528-4.746 15.874-7.037 25.039-7.037 7.037 0 12.846 1.145 17.347 3.518 4.582 2.373 8.182 5.236 10.883 8.51 2.7 3.272 4.746 6.382 6.137 9.327h1.554v-19.8h27.821v121.749c0 10.228-2.454 18.737-7.364 25.447-4.91 6.709-11.538 11.7-20.048 15.055-8.509 3.355-18.165 4.991-28.884 4.991Zm.245-71.266c5.974 0 11.047-1.473 15.302-4.337 4.173-2.945 7.446-7.118 9.573-12.519 2.21-5.482 3.274-12.027 3.274-19.637 0-7.609-1.064-14.155-3.274-19.8-2.127-5.646-5.318-10.064-9.491-13.255-4.174-3.11-9.329-4.746-15.384-4.746s-11.537 1.636-15.792 4.91c-4.173 3.272-7.365 7.772-9.492 13.418-2.128 5.727-3.191 12.191-3.191 19.392 0 7.2 1.063 13.745 3.273 19.228 2.127 5.482 5.318 9.736 9.573 12.764 4.174 3.027 9.41 4.582 15.629 4.582Zm141.56-26.51V71.839h28.23v119.786h-27.412v-21.273h-1.227c-2.7 6.709-7.119 12.191-13.338 16.446-6.137 4.255-13.747 6.382-22.748 6.382-7.855 0-14.81-1.718-20.783-5.237-5.974-3.518-10.72-8.591-14.075-15.382-3.355-6.709-5.073-14.891-5.073-24.464V71.839h28.312v71.921c0 7.609 2.046 13.664 6.219 18.083 4.173 4.5 9.655 6.709 16.365 6.709 4.173 0 8.183-.982 12.111-3.028 3.927-2.045 7.118-5.072 9.655-9.082 2.537-4.091 3.764-9.164 3.764-15.218Zm65.707-109.395v159.796h-28.23V31.828h28.23Zm44.841 162.169c-7.61 0-14.402-1.391-20.457-4.091-6.055-2.7-10.883-6.791-14.32-12.109-3.518-5.319-5.237-11.946-5.237-19.801 0-6.791 1.228-12.355 3.765-16.773 2.536-4.419 5.891-7.937 10.228-10.637 4.337-2.618 9.164-4.664 14.647-6.055 5.4-1.391 11.046-2.373 16.856-3.027 7.037-.737 12.683-1.391 17.102-1.964 4.337-.573 7.528-1.555 9.574-2.782 1.963-1.309 3.027-3.273 3.027-5.973v-.491c0-5.891-1.718-10.391-5.237-13.664-3.518-3.191-8.51-4.828-15.056-4.828-6.955 0-12.356 1.473-16.447 4.5-4.009 3.028-6.71 6.546-8.183 10.719l-26.348-3.764c2.046-7.282 5.483-13.336 10.31-18.328 4.746-4.909 10.638-8.59 17.511-11.045 6.955-2.455 14.565-3.682 22.912-3.682 5.809 0 11.537.654 17.265 2.045s10.965 3.6 15.711 6.71c4.746 3.109 8.51 7.282 11.455 12.6 2.864 5.318 4.337 11.946 4.337 19.883v80.184h-27.166v-16.446h-.9c-1.719 3.355-4.092 6.464-7.201 9.328-3.109 2.864-6.955 5.237-11.619 6.955-4.828 1.718-10.229 2.536-16.529 2.536Zm7.364-20.701c5.646 0 10.556-1.145 14.729-3.354 4.173-2.291 7.364-5.237 9.655-9.001 2.292-3.763 3.355-7.854 3.355-12.273v-14.155c-.9.737-2.373 1.391-4.5 2.046-2.128.654-4.419 1.145-7.037 1.636-2.619.491-5.155.9-7.692 1.227-2.537.328-4.746.655-6.628.901-4.173.572-8.019 1.472-11.292 2.781-3.355 1.31-5.973 3.11-7.855 5.401-1.964 2.291-2.864 5.318-2.864 8.918 0 5.237 1.882 9.164 5.728 11.782 3.682 2.782 8.51 4.091 14.401 4.091Zm64.643 18.328V71.839h27.412v19.965h1.227c2.21-6.955 5.974-12.274 11.292-16.038 5.319-3.763 11.456-5.645 18.329-5.645 1.555 0 3.355.082 5.237.163 1.964.164 3.601.328 4.91.573v25.938c-1.227-.41-3.109-.819-5.646-1.146a58.814 58.814 0 0 0-7.446-.49c-5.155 0-9.738 1.145-13.829 3.354-4.091 2.209-7.282 5.236-9.655 9.164-2.373 3.927-3.519 8.427-3.519 13.5v70.448h-28.312ZM222.077 39.192l-8.019 125.923L137.387 0l84.69 39.192Zm-53.105 162.825-57.933 33.056-57.934-33.056 11.783-28.556h92.301l11.783 28.556ZM111.039 62.675l30.357 73.803H80.681l30.358-73.803ZM7.937 165.115 0 39.192 84.69 0 7.937 165.115Z"
+          />
+          <path
+            fill="url(#c)"
+            d="M388.676 191.625h30.849L363.31 31.828h-35.758l-56.215 159.797h30.848l13.174-39.356h60.061l13.256 39.356Zm-65.461-62.675 21.602-64.311h1.227l21.602 64.311h-44.431Zm126.831-7.527v70.202h-28.23V71.839h27.002v20.374h1.392c2.782-6.71 7.2-12.028 13.255-15.956 6.056-3.927 13.584-5.89 22.503-5.89 8.264 0 15.465 1.8 21.684 5.318 6.137 3.518 10.964 8.673 14.319 15.382 3.437 6.71 5.074 14.81 4.992 24.383v76.175h-28.23v-71.92c0-8.019-2.046-14.237-6.219-18.819-4.173-4.5-9.819-6.791-17.102-6.791-4.91 0-9.328 1.063-13.174 3.272-3.846 2.128-6.792 5.237-9.001 9.328-2.046 4.009-3.191 8.918-3.191 14.728ZM589.233 239c-10.147 0-18.82-1.391-26.103-4.091-7.282-2.7-13.092-6.382-17.511-10.964-4.418-4.582-7.528-9.655-9.164-15.219l25.448-6.136c1.145 2.372 2.782 4.663 4.991 6.954 2.209 2.291 5.155 4.255 8.837 5.81 3.683 1.554 8.428 2.291 14.074 2.291 8.019 0 14.647-1.964 19.884-5.81 5.237-3.845 7.856-10.227 7.856-19.064v-22.665h-1.391c-1.473 2.946-3.601 5.892-6.383 9.001-2.782 3.109-6.464 5.645-10.965 7.691-4.582 2.046-10.228 3.109-17.101 3.109-9.165 0-17.511-2.209-25.039-6.545-7.446-4.337-13.42-10.883-17.757-19.474-4.418-8.673-6.628-19.473-6.628-32.565 0-13.091 2.21-24.301 6.628-33.383 4.419-9.082 10.311-15.955 17.839-20.7 7.528-4.746 15.874-7.037 25.039-7.037 7.037 0 12.846 1.145 17.347 3.518 4.582 2.373 8.182 5.236 10.883 8.51 2.7 3.272 4.746 6.382 6.137 9.327h1.554v-19.8h27.821v121.749c0 10.228-2.454 18.737-7.364 25.447-4.91 6.709-11.538 11.7-20.048 15.055-8.509 3.355-18.165 4.991-28.884 4.991Zm.245-71.266c5.974 0 11.047-1.473 15.302-4.337 4.173-2.945 7.446-7.118 9.573-12.519 2.21-5.482 3.274-12.027 3.274-19.637 0-7.609-1.064-14.155-3.274-19.8-2.127-5.646-5.318-10.064-9.491-13.255-4.174-3.11-9.329-4.746-15.384-4.746s-11.537 1.636-15.792 4.91c-4.173 3.272-7.365 7.772-9.492 13.418-2.128 5.727-3.191 12.191-3.191 19.392 0 7.2 1.063 13.745 3.273 19.228 2.127 5.482 5.318 9.736 9.573 12.764 4.174 3.027 9.41 4.582 15.629 4.582Zm141.56-26.51V71.839h28.23v119.786h-27.412v-21.273h-1.227c-2.7 6.709-7.119 12.191-13.338 16.446-6.137 4.255-13.747 6.382-22.748 6.382-7.855 0-14.81-1.718-20.783-5.237-5.974-3.518-10.72-8.591-14.075-15.382-3.355-6.709-5.073-14.891-5.073-24.464V71.839h28.312v71.921c0 7.609 2.046 13.664 6.219 18.083 4.173 4.5 9.655 6.709 16.365 6.709 4.173 0 8.183-.982 12.111-3.028 3.927-2.045 7.118-5.072 9.655-9.082 2.537-4.091 3.764-9.164 3.764-15.218Zm65.707-109.395v159.796h-28.23V31.828h28.23Zm44.841 162.169c-7.61 0-14.402-1.391-20.457-4.091-6.055-2.7-10.883-6.791-14.32-12.109-3.518-5.319-5.237-11.946-5.237-19.801 0-6.791 1.228-12.355 3.765-16.773 2.536-4.419 5.891-7.937 10.228-10.637 4.337-2.618 9.164-4.664 14.647-6.055 5.4-1.391 11.046-2.373 16.856-3.027 7.037-.737 12.683-1.391 17.102-1.964 4.337-.573 7.528-1.555 9.574-2.782 1.963-1.309 3.027-3.273 3.027-5.973v-.491c0-5.891-1.718-10.391-5.237-13.664-3.518-3.191-8.51-4.828-15.056-4.828-6.955 0-12.356 1.473-16.447 4.5-4.009 3.028-6.71 6.546-8.183 10.719l-26.348-3.764c2.046-7.282 5.483-13.336 10.31-18.328 4.746-4.909 10.638-8.59 17.511-11.045 6.955-2.455 14.565-3.682 22.912-3.682 5.809 0 11.537.654 17.265 2.045s10.965 3.6 15.711 6.71c4.746 3.109 8.51 7.282 11.455 12.6 2.864 5.318 4.337 11.946 4.337 19.883v80.184h-27.166v-16.446h-.9c-1.719 3.355-4.092 6.464-7.201 9.328-3.109 2.864-6.955 5.237-11.619 6.955-4.828 1.718-10.229 2.536-16.529 2.536Zm7.364-20.701c5.646 0 10.556-1.145 14.729-3.354 4.173-2.291 7.364-5.237 9.655-9.001 2.292-3.763 3.355-7.854 3.355-12.273v-14.155c-.9.737-2.373 1.391-4.5 2.046-2.128.654-4.419 1.145-7.037 1.636-2.619.491-5.155.9-7.692 1.227-2.537.328-4.746.655-6.628.901-4.173.572-8.019 1.472-11.292 2.781-3.355 1.31-5.973 3.11-7.855 5.401-1.964 2.291-2.864 5.318-2.864 8.918 0 5.237 1.882 9.164 5.728 11.782 3.682 2.782 8.51 4.091 14.401 4.091Zm64.643 18.328V71.839h27.412v19.965h1.227c2.21-6.955 5.974-12.274 11.292-16.038 5.319-3.763 11.456-5.645 18.329-5.645 1.555 0 3.355.082 5.237.163 1.964.164 3.601.328 4.91.573v25.938c-1.227-.41-3.109-.819-5.646-1.146a58.814 58.814 0 0 0-7.446-.49c-5.155 0-9.738 1.145-13.829 3.354-4.091 2.209-7.282 5.236-9.655 9.164-2.373 3.927-3.519 8.427-3.519 13.5v70.448h-28.312ZM222.077 39.192l-8.019 125.923L137.387 0l84.69 39.192Zm-53.105 162.825-57.933 33.056-57.934-33.056 11.783-28.556h92.301l11.783 28.556ZM111.039 62.675l30.357 73.803H80.681l30.358-73.803ZM7.937 165.115 0 39.192 84.69 0 7.937 165.115Z"
+          />
+        </g>
+        <defs>
+          <radialGradient
+            id="c"
+            cx="0"
+            cy="0"
+            r="1"
+            gradientTransform="rotate(118.122 171.182 60.81) scale(205.794)"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="#FF41F8" />
+            <stop offset=".707" stop-color="#FF41F8" stop-opacity=".5" />
+            <stop offset="1" stop-color="#FF41F8" stop-opacity="0" />
+          </radialGradient>
+          <linearGradient
+            id="b"
+            x1="0"
+            x2="982"
+            y1="192"
+            y2="192"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="#F0060B" />
+            <stop offset="0" stop-color="#F0070C" />
+            <stop offset=".526" stop-color="#CC26D5" />
+            <stop offset="1" stop-color="#7702FF" />
+          </linearGradient>
+          <clipPath id="a"><path fill="#fff" d="M0 0h982v239H0z" /></clipPath>
+        </defs>
+      </svg>
+      <h1>Hello, {{ title() }}</h1>
+      <p>Congratulations! Your app is running. рџЋ‰</p>
+    </div>
+    <div class="divider" role="separator" aria-label="Divider"></div>
+    <div class="right-side">
+      <div class="pill-group">
+        @for (item of [
+          { title: 'Explore the Docs', link: 'https://angular.dev' },
+          { title: 'Learn with Tutorials', link: 'https://angular.dev/tutorials' },
+          { title: 'Prompt and best practices for AI', link: 'https://angular.dev/ai/develop-with-ai'},
+          { title: 'CLI Docs', link: 'https://angular.dev/tools/cli' },
+          { title: 'Angular Language Service', link: 'https://angular.dev/tools/language-service' },
+          { title: 'Angular DevTools', link: 'https://angular.dev/tools/devtools' },
+        ]; track item.title) {
+          <a
+            class="pill"
+            [href]="item.link"
+            target="_blank"
+            rel="noopener"
+          >
+            <span>{{ item.title }}</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="14"
+              viewBox="0 -960 960 960"
+              width="14"
+              fill="currentColor"
+            >
+              <path
+                d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"
+              />
+            </svg>
+          </a>
+        }
+      </div>
+      <div class="social-links">
+        <a
+          href="https://github.com/angular/angular"
+          aria-label="Github"
+          target="_blank"
+          rel="noopener"
+        >
+          <svg
+            width="25"
+            height="24"
+            viewBox="0 0 25 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            alt="Github"
+          >
+            <path
+              d="M12.3047 0C5.50634 0 0 5.50942 0 12.3047C0 17.7423 3.52529 22.3535 8.41332 23.9787C9.02856 24.0946 9.25414 23.7142 9.25414 23.3871C9.25414 23.0949 9.24389 22.3207 9.23876 21.2953C5.81601 22.0377 5.09414 19.6444 5.09414 19.6444C4.53427 18.2243 3.72524 17.8449 3.72524 17.8449C2.61064 17.082 3.81137 17.0973 3.81137 17.0973C5.04697 17.1835 5.69604 18.3647 5.69604 18.3647C6.79321 20.2463 8.57636 19.7029 9.27978 19.3881C9.39052 18.5924 9.70736 18.0499 10.0591 17.7423C7.32641 17.4347 4.45429 16.3765 4.45429 11.6618C4.45429 10.3185 4.9311 9.22133 5.72065 8.36C5.58222 8.04931 5.16694 6.79833 5.82831 5.10337C5.82831 5.10337 6.85883 4.77319 9.2121 6.36459C10.1965 6.09082 11.2424 5.95546 12.2883 5.94931C13.3342 5.95546 14.3801 6.09082 15.3644 6.36459C17.7023 4.77319 18.7328 5.10337 18.7328 5.10337C19.3942 6.79833 18.9789 8.04931 18.8559 8.36C19.6403 9.22133 20.1171 10.3185 20.1171 11.6618C20.1171 16.3888 17.2409 17.4296 14.5031 17.7321C14.9338 18.1012 15.3337 18.8559 15.3337 20.0084C15.3337 21.6552 15.3183 22.978 15.3183 23.3779C15.3183 23.7009 15.5336 24.0854 16.1642 23.9623C21.0871 22.3484 24.6094 17.7341 24.6094 12.3047C24.6094 5.50942 19.0999 0 12.3047 0Z"
+            />
+          </svg>
+        </a>
+        <a
+          href="https://x.com/angular"
+          aria-label="X"
+          target="_blank"
+          rel="noopener"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            alt="X"
+          >
+            <path
+              d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+            />
+          </svg>
+        </a>
+        <a
+          href="https://www.youtube.com/channel/UCbn1OgGei-DV7aSRo_HaAiw"
+          aria-label="Youtube"
+          target="_blank"
+          rel="noopener"
+        >
+          <svg
+            width="29"
+            height="20"
+            viewBox="0 0 29 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            alt="Youtube"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M27.4896 1.52422C27.9301 1.96749 28.2463 2.51866 28.4068 3.12258C29.0004 5.35161 29.0004 10 29.0004 10C29.0004 10 29.0004 14.6484 28.4068 16.8774C28.2463 17.4813 27.9301 18.0325 27.4896 18.4758C27.0492 18.9191 26.5 19.2389 25.8972 19.4032C23.6778 20 14.8068 20 14.8068 20C14.8068 20 5.93586 20 3.71651 19.4032C3.11363 19.2389 2.56449 18.9191 2.12405 18.4758C1.68361 18.0325 1.36732 17.4813 1.20683 16.8774C0.613281 14.6484 0.613281 10 0.613281 10C0.613281 10 0.613281 5.35161 1.20683 3.12258C1.36732 2.51866 1.68361 1.96749 2.12405 1.52422C2.56449 1.08095 3.11363 0.76113 3.71651 0.596774C5.93586 0 14.8068 0 14.8068 0C14.8068 0 23.6778 0 25.8972 0.596774C26.5 0.76113 27.0492 1.08095 27.4896 1.52422ZM19.3229 10L11.9036 5.77905V14.221L19.3229 10Z"
+            />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+
+<router-outlet />
+
+
+==================== FILE: client\src\app\app.routes.ts ====================
+import { Routes } from '@angular/router';
+import { CommunitiesPageComponent } from './pages/communities.page';
+import { CommunityDetailPageComponent } from './pages/community-detail.page';
+import { EventsPageComponent } from './pages/events.page';
+import { MyEventsPageComponent } from './pages/my-events.page';
+import { LoginPageComponent } from './pages/login.page';
+
+export const routes: Routes = [
+  { path: '', component: CommunitiesPageComponent },
+  { path: 'communities/:id', component: CommunityDetailPageComponent },
+  { path: 'events', component: EventsPageComponent },
+  { path: 'my-events', component: MyEventsPageComponent },
+  { path: 'login', component: LoginPageComponent },
+  { path: '**', redirectTo: '' }
+];
+
+
+==================== FILE: client\src\app\app.spec.ts ====================
+import { TestBed } from '@angular/core/testing';
+import { App } from './app';
+
+describe('App', () => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [App],
+    }).compileComponents();
+  });
+
+  it('should create the app', () => {
+    const fixture = TestBed.createComponent(App);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
+  });
+
+  it('should render title', async () => {
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, client');
+  });
+});
+
+
+==================== FILE: client\src\app\app.ts ====================
+import { Component, inject } from '@angular/core';
+import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
+import { AuthService } from './services/auth.service';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  template: `
+    <header class="navbar">
+      <nav class="container flex-between" style="padding-top:0.75rem; padding-bottom:0.75rem;" aria-label="Р“РѕР»РѕРІРЅР° РЅР°РІС–РіР°С†С–СЏ">
+        <div class="flex-gap">
+          <a routerLink="/" class="brand-logo" style="margin-right:0.75rem;">
+            <span class="brand-icon">вњ¦</span>
+            <span>ClubHub <span style="color:var(--primary);">UA</span></span>
+          </a>
+          <a routerLink="/" class="nav-link" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}">рџЏ›пёЏ РЎРїС–Р»СЊРЅРѕС‚Рё</a>
+          <a routerLink="/events" class="nav-link" routerLinkActive="active-link">рџ“… РљР°Р»РµРЅРґР°СЂ РїРѕРґС–Р№</a>
+          @if (auth.isLoggedIn()) {
+            <a routerLink="/my-events" class="nav-link" routerLinkActive="active-link">рџЋџпёЏ РњРѕС— СѓС‡Р°СЃС‚С–</a>
+          }
+        </div>
+
+        <div class="flex-gap">
+          @if (auth.user(); as u) {
+            <div class="flex-gap" style="background:#f1f5f9; padding:0.35rem 0.8rem; border-radius:999px;">
+              <span class="avatar-circle">{{ u.fullName[0] }}</span>
+              <span style="font-size:0.9rem; font-weight:600;">{{ u.fullName }}</span>
+              <span class="badge badge-public">{{ translateRole(u.role) }}</span>
+            </div>
+            <button class="btn btn-secondary btn-sm" (click)="logout()">Р’РёР№С‚Рё</button>
+          } @else {
+            <a routerLink="/login" class="btn btn-sm">РЈРІС–Р№С‚Рё / Р РµС”СЃС‚СЂР°С†С–СЏ</a>
+          }
+        </div>
+      </nav>
+    </header>
+
+    <main class="container">
+      <router-outlet></router-outlet>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container flex-between" style="padding-top:0; padding-bottom:0;">
+        <div>
+          <strong style="color:#fff; font-size:1.05rem;">вњ¦ ClubHub UA</strong> вЂ” РџР»Р°С‚С„РѕСЂРјР° СЃРїС–Р»СЊРЅРѕС‚ С– РєР»СѓР±РЅРёС… РїРѕРґС–Р№
+        </div>
+        <div class="flex-gap">
+          <a routerLink="/" style="color:#93c5fd;">РљР°С‚Р°Р»РѕРі РєР»СѓР±С–РІ</a>
+          <span>вЂў</span>
+          <a routerLink="/events" style="color:#93c5fd;">Р РѕР·РєР»Р°Рґ РїРѕРґС–Р№</a>
+          <span>вЂў</span>
+          <a routerLink="/login" style="color:#93c5fd;">Р”РµРјРѕ-РІС…С–Рґ (Р РѕР»С–)</a>
+        </div>
+      </div>
+    </footer>
+  `
+})
+export class App {
+  auth = inject(AuthService);
+  private router = inject(Router);
+
+  translateRole(role: string): string {
+    if (role === 'Organizer') return 'РћСЂРіР°РЅС–Р·Р°С‚РѕСЂ';
+    if (role === 'Moderator') return 'РњРѕРґРµСЂР°С‚РѕСЂ';
+    return 'РЈС‡Р°СЃРЅРёРє';
+  }
+
+  logout() {
+    this.auth.logout();
+    this.router.navigateByUrl('/login');
+  }
+}
+
+==================== FILE: client\src\app\interceptors\auth.interceptor.ts ====================
+import { HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  const token = inject(AuthService).getToken();
+  if (token) {
+    req = req.clone({
+      setHeaders: { Authorization: `Bearer ${token}` }
+    });
+  }
+  return next(req);
+};
+
+
+==================== FILE: client\src\app\models\api.models.ts ====================
+export interface AuthResponse {
+  token: string;
+  userId: number;
+  fullName: string;
+  email: string;
+  role: 'Participant' | 'Organizer' | 'Moderator';
+}
+
+export interface Community {
+  id: number;
+  name: string;
+  category: string;
+  description: string;
+  isPrivate: boolean;
+  isBlocked: boolean;
+  organizerId: number;
+  organizerName: string;
+  membersCount: number;
+  myMembershipStatus?: 'Pending' | 'Approved' | 'Rejected' | 'Revoked' | null;
+  isOrganizer: boolean;
+  canViewPrivateContent?: boolean;
+  pendingRequests?: MembershipItem[];
+  approvedMembers?: MembershipItem[];
+}
+
+export interface MembershipItem {
+  id: number;
+  userId: number;
+  userName: string;
+  userEmail: string;
+  applicationNote?: string;
+  requestedAt?: string;
+  updatedAt?: string;
+}
+
+export interface ClubEvent {
+  id: number;
+  communityId: number;
+  communityName: string;
+  title: string;
+  description: string;
+  location: string;
+  startsAt: string;
+  maxCapacity: number;
+  confirmedCount: number;
+  waitlistCount: number;
+  availableSeats: number;
+  isPrivateForMembersOnly: boolean;
+  myRegistrationStatus?: 'Confirmed' | 'Waitlisted' | 'Cancelled' | null;
+}
+
+export interface MyRegistration {
+  id: number;
+  eventId: number;
+  eventTitle: string;
+  communityName: string;
+  location: string;
+  startsAt: string;
+  status: 'Confirmed' | 'Waitlisted';
+  registeredAt: string;
+}
+
+export interface CommunityPost {
+  id: number;
+  title: string;
+  content: string;
+  isMembersOnly: boolean;
+  isHiddenByModerator: boolean;
+  moderationReason?: string;
+  authorName: string;
+  createdAt: string;
+}
+
+
+==================== FILE: client\src\app\pages\communities.page.ts ====================
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { ApiService } from '../services/api.service';
+import { AuthService } from '../services/auth.service';
+import { Community, ClubEvent } from '../models/api.models';
+
+@Component({
+  selector: 'app-communities-page',
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterLink],
+  template: `
+    <section class="hero-banner">
+      <div>
+        <h1>Р—РЅР°С…РѕРґСЊ СЃРІРѕС—С… Р»СЋРґРµР№ С‚Р° СЃС‚РІРѕСЂСЋР№ РїРѕРґС–С—</h1>
+        <p>Р„РґРёРЅР° РїР»Р°С‚С„РѕСЂРјР° РґР»СЏ РєР»СѓР±С–РІ Р·Р° С–РЅС‚РµСЂРµСЃР°РјРё, Р·Р°РєСЂРёС‚РёС… СЃРїС–Р»СЊРЅРѕС‚, Р»РѕРєР°Р»СЊРЅРёС… РІРѕСЂРєС€РѕРїС–РІ С– Р·СѓСЃС‚СЂС–С‡РµР№ Сѓ С‚РІРѕС”РјСѓ РјС–СЃС‚С–.</p>
+        <div class="hero-stats">
+          <span class="stat-pill">рџЏ›пёЏ РђРєС‚РёРІРЅРёС… РєР»СѓР±С–РІ: {{ communities().length }}</span>
+          <span class="stat-pill">рџ“… РќР°Р№Р±Р»РёР¶С‡РёС… РїРѕРґС–Р№: {{ upcomingEvents().length }}</span>
+          <span class="stat-pill">вљЎ РђРІС‚РѕРјР°С‚РёС‡РЅРёР№ Waitlist</span>
+        </div>
+        @if (auth.role() === 'Organizer' || auth.role() === 'Moderator') {
+          <div style="margin-top:1.35rem;">
+            <button class="btn" style="background:#fff; color:#1e1b4b; font-size:1rem; padding:0.75rem 1.4rem;" (click)="showCreate = !showCreate">
+              {{ showCreate ? 'вњ• Р—Р°РєСЂРёС‚Рё С„РѕСЂРјСѓ' : '+ РЎС‚РІРѕСЂРёС‚Рё РЅРѕРІРёР№ РєР»СѓР±' }}
+            </button>
+          </div>
+        }
+      </div>
+
+      <!-- РўРµРјР°С‚РёС‡РЅР° SVG-С–Р»СЋСЃС‚СЂР°С†С–СЏ РєРѕРј'СЋРЅС–С‚С– С‚Р° РїРѕРґС–Р№ -->
+      <div class="hero-visual" aria-hidden="true">
+        <svg width="360" height="210" viewBox="0 0 360 210" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="14" width="215" height="125" rx="18" fill="white" fill-opacity="0.14" stroke="white" stroke-opacity="0.28"/>
+          <circle cx="46" cy="50" r="18" fill="#38BDF8"/>
+          <rect x="76" y="38" width="120" height="10" rx="5" fill="white" fill-opacity="0.85"/>
+          <rect x="76" y="55" width="84" height="8" rx="4" fill="#BAE6FD" fill-opacity="0.7"/>
+          <rect x="28" y="84" width="178" height="36" rx="10" fill="#1E1B4B" fill-opacity="0.45"/>
+          <circle cx="50" cy="102" r="9" fill="#34D399"/>
+          <rect x="68" y="97" width="115" height="10" rx="5" fill="white" fill-opacity="0.9"/>
+
+          <rect x="135" y="76" width="215" height="120" rx="18" fill="white" fill-opacity="0.96"/>
+          <rect x="153" y="94" width="44" height="44" rx="12" fill="#EEF2FF"/>
+          <text x="164" y="123" font-size="22">рџ“…</text>
+          <rect x="208" y="100" width="122" height="11" rx="5.5" fill="#1E1B4B"/>
+          <rect x="208" y="119" width="88" height="9" rx="4.5" fill="#64748B"/>
+          <rect x="153" y="152" width="179" height="28" rx="9" fill="#4F46E5"/>
+          <text x="195" y="170" fill="white" font-size="12" font-weight="bold" font-family="sans-serif">РЈС‡Р°СЃС‚СЊ РїС–РґС‚РІРµСЂРґР¶РµРЅРѕ вњ“</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- РЁРІРёРґРєРёР№ РІРёР±С–СЂ РєР°С‚РµРіРѕСЂС–Р№ РІРµР»РёРєРёРјРё РїР»РёС‚РєР°РјРё -->
+    <div class="cat-pills">
+      <button type="button" class="cat-tile" [class.active]="category === ''" (click)="selectCategory('')">
+        <span class="cat-tile-icon">рџЊџ</span><span>РЈСЃС– РЅР°РїСЂСЏРјРєРё</span>
+      </button>
+      <button type="button" class="cat-tile" [class.active]="category === 'РўРµС…РЅРѕР»РѕРіС–С—'" (click)="selectCategory('РўРµС…РЅРѕР»РѕРіС–С—')">
+        <span class="cat-tile-icon">рџ’»</span><span>РўРµС…РЅРѕР»РѕРіС–С— С‚Р° IT</span>
+      </button>
+      <button type="button" class="cat-tile" [class.active]="category === 'РњРёСЃС‚РµС†С‚РІРѕ'" (click)="selectCategory('РњРёСЃС‚РµС†С‚РІРѕ')">
+        <span class="cat-tile-icon">рџЋ¬</span><span>РљС–РЅРѕ С‚Р° РјРёСЃС‚РµС†С‚РІРѕ</span>
+      </button>
+      <button type="button" class="cat-tile" [class.active]="category === 'РЎРїРѕСЂС‚'" (click)="selectCategory('РЎРїРѕСЂС‚')">
+        <span class="cat-tile-icon">рџЏѓ</span><span>РЎРїРѕСЂС‚ С– Р°РєС‚РёРІРЅС–СЃС‚СЊ</span>
+      </button>
+      <button type="button" class="cat-tile" [class.active]="category === 'РћСЃРІС–С‚Р° С‚Р° РЅР°СѓРєР°'" (click)="selectCategory('РћСЃРІС–С‚Р° С‚Р° РЅР°СѓРєР°')">
+        <span class="cat-tile-icon">рџ”¬</span><span>РћСЃРІС–С‚Р° С‚Р° РЅР°СѓРєР°</span>
+      </button>
+    </div>
+
+    @if (message()) { <div class="alert alert-success">{{ message() }}</div> }
+    @if (error()) { <div class="alert alert-error">{{ error() }}</div> }
+
+    @if (showCreate) {
+      <div class="card">
+        <h2 style="margin-top:0;">вњЁ РќРѕРІР° СЃРїС–Р»СЊРЅРѕС‚Р°</h2>
+        <form (ngSubmit)="createCommunity()">
+          <div class="form-group">
+            <label for="cName">РќР°Р·РІР° СЃРїС–Р»СЊРЅРѕС‚Рё *</label>
+            <input id="cName" class="form-control" [(ngModel)]="newName" name="name" required maxlength="120" />
+          </div>
+          <div class="form-group">
+            <label for="cCat">РљР°С‚РµРіРѕСЂС–СЏ *</label>
+            <select id="cCat" class="form-control" [(ngModel)]="newCategory" name="category">
+              <option value="РўРµС…РЅРѕР»РѕРіС–С—">рџ’» РўРµС…РЅРѕР»РѕРіС–С—</option>
+              <option value="РњРёСЃС‚РµС†С‚РІРѕ">рџЋ¬ РњРёСЃС‚РµС†С‚РІРѕ</option>
+              <option value="РЎРїРѕСЂС‚">рџЏѓ РЎРїРѕСЂС‚</option>
+              <option value="РћСЃРІС–С‚Р° С‚Р° РЅР°СѓРєР°">рџ”¬ РћСЃРІС–С‚Р° С‚Р° РЅР°СѓРєР°</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cDesc">РћРїРёСЃ *</label>
+            <textarea id="cDesc" class="form-control" rows="3" [(ngModel)]="newDescription" name="description" required></textarea>
+          </div>
+          <div class="form-group">
+            <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;">
+              <input type="checkbox" [(ngModel)]="newIsPrivate" name="isPrivate" />
+              рџ”’ Р—Р°РєСЂРёС‚Р° СЃРїС–Р»СЊРЅРѕС‚Р° (РІСЃС‚СѓРї Р»РёС€Рµ РїС–СЃР»СЏ СЃС…РІР°Р»РµРЅРЅСЏ РѕСЂРіР°РЅС–Р·Р°С‚РѕСЂРѕРј)
+            </label>
+          </div>
+          <button class="btn" type="submit" [disabled]="submitting">РЎС‚РІРѕСЂРёС‚Рё СЃРїС–Р»СЊРЅРѕС‚Сѓ</button>
+        </form>
+      </div>
+    }
+
+    <div class="card" style="padding:1.1rem 1.4rem;">
+      <div class="flex-gap">
+        <input class="form-control" style="flex:1; min-width:260px;" placeholder="рџ”Ќ РџРѕС€СѓРє РєР»СѓР±Сѓ Р·Р° РЅР°Р·РІРѕСЋ Р°Р±Рѕ РєР»СЋС‡РѕРІРёРј СЃР»РѕРІРѕРј..."
+               [(ngModel)]="search" (keyup.enter)="load()" aria-label="РџРѕС€СѓРє СЃРїС–Р»СЊРЅРѕС‚" />
+        <select class="form-control" style="max-width:230px;" [(ngModel)]="privacyFilter" (change)="load()" aria-label="РўРёРї РґРѕСЃС‚СѓРїСѓ">
+          <option value="">РЈСЃС– С„РѕСЂРјР°С‚Рё РґРѕСЃС‚СѓРїСѓ</option>
+          <option value="false">рџЊђ Р’С–РґРєСЂРёС‚С– РєР»СѓР±Рё</option>
+          <option value="true">рџ”’ Р—Р°РєСЂРёС‚С– РєР»СѓР±Рё</option>
+        </select>
+        <button class="btn" (click)="load()">Р—РЅР°Р№С‚Рё</button>
+      </div>
+    </div>
+
+    @if (loading()) {
+      <p class="muted">Р—Р°РІР°РЅС‚Р°Р¶РµРЅРЅСЏ СЃРїС–Р»СЊРЅРѕС‚...</p>
+    } @else if (communities().length === 0) {
+      <div class="card">Р—Р° РІР°С€РёРј Р·Р°РїРёС‚РѕРј СЃРїС–Р»СЊРЅРѕС‚ РЅРµ Р·РЅР°Р№РґРµРЅРѕ.</div>
+    } @else {
+      <div class="grid" style="margin-bottom:2.25rem;">
+        @for (c of communities(); track c.id) {
+          <article class="card club-card">
+            <div class="club-cover" [ngClass]="getCoverClass(c.category)">
+              <span class="badge badge-glass">
+                {{ c.isPrivate ? 'рџ”’ Р—Р°РєСЂРёС‚РёР№ РєР»СѓР±' : 'рџЊђ Р’С–РґРєСЂРёС‚РёР№ РєР»СѓР±' }}
+              </span>
+              <span class="badge badge-glass">{{ c.category }}</span>
+            </div>
+
+            <div class="club-body">
+              <div>
+                <div class="club-emoji">{{ getCategoryEmoji(c.category) }}</div>
+                @if (c.isBlocked) {
+                  <span class="badge badge-danger" style="margin-bottom:0.4rem;">Р—Р°Р±Р»РѕРєРѕРІР°РЅРѕ РјРѕРґРµСЂР°С‚РѕСЂРѕРј</span>
+                }
+                <h3 style="margin:0.1rem 0 0.5rem; font-size:1.22rem;">
+                  <a [routerLink]="['/communities', c.id]" style="color:var(--text);">{{ c.name }}</a>
+                </h3>
+                <p class="muted" style="margin:0 0 1.1rem;">{{ c.description }}</p>
+              </div>
+
+              <div>
+                <div class="flex-between muted" style="margin-bottom:0.95rem; padding-top:0.85rem; border-top:1px solid var(--border); font-size:0.9rem;">
+                  <span class="flex-gap" style="gap:0.5rem;">
+                    <span class="avatar-circle">{{ c.organizerName[0] }}</span>
+                    <span>{{ c.organizerName }}</span>
+                  </span>
+                  <span>рџ‘Ґ <strong>{{ c.membersCount }}</strong> СѓС‡Р°СЃРЅ.</span>
+                </div>
+
+                <div class="flex-between">
+                  <a class="btn btn-secondary btn-sm" [routerLink]="['/communities', c.id]">РџРµСЂРµР№С‚Рё РІ РєР»СѓР± в†’</a>
+
+                  @if (auth.isLoggedIn() && !c.isOrganizer) {
+                    @if (c.myMembershipStatus === 'Approved') {
+                      <span class="badge badge-success">вњ“ Р’Рё СѓС‡Р°СЃРЅРёРє</span>
+                    } @else if (c.myMembershipStatus === 'Pending') {
+                      <span class="badge badge-warn">вЏі Р—Р°СЏРІРєР° РЅР° СЂРѕР·РіР»СЏРґС–</span>
+                    } @else {
+                      <button class="btn btn-sm" (click)="join(c)">
+                        {{ c.isPrivate ? 'РџРѕРґР°С‚Рё Р·Р°СЏРІРєСѓ' : 'Р’СЃС‚СѓРїРёС‚Рё' }}
+                      </button>
+                    }
+                  }
+                </div>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    }
+
+    <!-- РЎРµРєС†С–СЏ РЅР°Р№Р±Р»РёР¶С‡РёС… РїРѕРґС–Р№ С‚Р° Р±Р»РѕРє В«РЇРє РїСЂР°С†СЋС” РїР»Р°С‚С„РѕСЂРјР°В» -->
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap:1.5rem; margin-top:1rem;">
+      @if (upcomingEvents().length > 0) {
+        <section class="card" style="margin-bottom:0;">
+          <div class="flex-between" style="margin-bottom:1rem;">
+            <h2 style="margin:0; font-size:1.35rem;">рџ”Ґ РќР°Р№Р±Р»РёР¶С‡С– РїРѕРґС–С— СЃРїС–Р»СЊРЅРѕС‚</h2>
+            <a routerLink="/events" class="btn btn-secondary btn-sm">РЈРІРµСЃСЊ РєР°Р»РµРЅРґР°СЂ в†’</a>
+          </div>
+          @for (ev of upcomingEvents(); track ev.id) {
+            <div style="padding:1rem; border:1px solid var(--border); border-radius:12px; margin-bottom:0.75rem; background:#f8fafc;">
+              <div class="flex-between" style="margin-bottom:0.4rem;">
+                <a [routerLink]="['/communities', ev.communityId]" class="badge badge-public">рџЏ›пёЏ {{ ev.communityName }}</a>
+                <span class="badge" [class.badge-warn]="ev.availableSeats === 0" [class.badge-success]="ev.availableSeats > 0">
+                  {{ ev.availableSeats > 0 ? 'Р’С–Р»СЊРЅРѕ: ' + ev.availableSeats + '/' + ev.maxCapacity : 'Р§РµСЂРіР°: ' + ev.waitlistCount }}
+                </span>
+              </div>
+              <h3 style="margin:0.3rem 0; font-size:1.1rem;">{{ ev.title }}</h3>
+              <div class="muted" style="font-size:0.88rem; margin-bottom:0.65rem;">
+                рџ—“пёЏ {{ ev.startsAt | date:'dd.MM.yyyy Рѕ HH:mm' }} вЂў рџ“Ќ {{ ev.location }}
+              </div>
+              <a [routerLink]="['/communities', ev.communityId]" class="btn btn-sm">Р”РµС‚Р°Р»СЊРЅС–С€Рµ С‚Р° Р·Р°РїРёСЃ в†’</a>
+            </div>
+          }
+        </section>
+      }
+
+      <section class="card" style="margin-bottom:0; background:linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);">
+        <h2 style="margin-top:0; font-size:1.35rem;">рџ§­ РЇРє РїСЂР°С†СЋС” ClubHub UA</h2>
+        <div style="display:flex; flex-direction:column; gap:1rem; margin-top:1rem;">
+          <div class="flex-gap" style="align-items:flex-start;">
+            <span class="brand-icon" style="flex-shrink:0;">1</span>
+            <div>
+              <strong>РћР±РёСЂР°Р№С‚Рµ РІС–РґРєСЂРёС‚С– Р°Р±Рѕ Р·Р°РєСЂРёС‚С– РєР»СѓР±Рё</strong>
+              <div class="muted">РЈ РІС–РґРєСЂРёС‚С– СЃРїС–Р»СЊРЅРѕС‚Рё РІС…С–Рґ РјРёС‚С‚С”РІРёР№, Р° РґР»СЏ Р·Р°РєСЂРёС‚РёС… РєР»СѓР±С–РІ Р·Р°СЏРІРєР° РїРµСЂРµРґР°С”С‚СЊСЃСЏ РѕСЂРіР°РЅС–Р·Р°С‚РѕСЂСѓ РЅР° РїРѕРіРѕРґР¶РµРЅРЅСЏ.</div>
+            </div>
+          </div>
+          <div class="flex-gap" style="align-items:flex-start;">
+            <span class="brand-icon" style="flex-shrink:0;">2</span>
+            <div>
+              <strong>Р‘СЂРѕРЅСЋР№С‚Рµ РјС–СЃС†СЏ Р· С‡РµСЂРіРѕСЋ РѕС‡С–РєСѓРІР°РЅРЅСЏ</strong>
+              <div class="muted">РЇРєС‰Рѕ Р»С–РјС–С‚ РјС–СЃС†СЊ РІРёС‡РµСЂРїР°РЅРѕ, РІРё РїРѕС‚СЂР°РїР»СЏС”С‚Рµ Сѓ Waitlist С– Р°РІС‚РѕРјР°С‚РёС‡РЅРѕ РѕС‚СЂРёРјСѓС”С‚Рµ РјС–СЃС†Рµ РїСЂРё СЃРєР°СЃСѓРІР°РЅРЅС– РєРёРјРѕСЃСЊ СѓС‡Р°СЃС‚С–.</div>
+            </div>
+          </div>
+          <div class="flex-gap" style="align-items:flex-start;">
+            <span class="brand-icon" style="flex-shrink:0;">3</span>
+            <div>
+              <strong>РљРµСЂСѓР№С‚Рµ СЃРІРѕС—Рј СЂРѕР·РєР»Р°РґРѕРј С‚Р° РєР»СѓР±РѕРј</strong>
+              <div class="muted">РћСЂРіР°РЅС–Р·Р°С‚РѕСЂРё РїСѓР±Р»С–РєСѓСЋС‚СЊ Р·Р°РєСЂРёС‚С– РјР°С‚РµСЂС–Р°Р»Рё С‚Р° РїРѕРґС–С—, Р° РјРѕРґРµСЂР°С‚РѕСЂРё СЃС‚РµР¶Р°С‚СЊ Р·Р° РґРѕС‚СЂРёРјР°РЅРЅСЏРј РїСЂР°РІРёР».</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  `
+})
+export class CommunitiesPageComponent implements OnInit {
+  private api = inject(ApiService);
+  auth = inject(AuthService);
+
+  communities = signal<Community[]>([]);
+  upcomingEvents = signal<ClubEvent[]>([]);
+  loading = signal(true);
+  message = signal('');
+  error = signal('');
+
+  search = '';
+  category = '';
+  privacyFilter = '';
+
+  showCreate = false;
+  submitting = false;
+  newName = '';
+  newCategory = 'РўРµС…РЅРѕР»РѕРіС–С—';
+  newDescription = '';
+  newIsPrivate = false;
+
+  ngOnInit() {
+    this.load();
+    this.api.getEvents().subscribe({
+      next: evs => this.upcomingEvents.set(evs.slice(0, 3))
+    });
+  }
+
+  selectCategory(cat: string) {
+    this.category = cat;
+    this.load();
+  }
+
+  getCoverClass(cat: string): string {
+    if (cat === 'РњРёСЃС‚РµС†С‚РІРѕ') return 'cover-art';
+    if (cat === 'РЎРїРѕСЂС‚') return 'cover-sport';
+    if (cat === 'РћСЃРІС–С‚Р° С‚Р° РЅР°СѓРєР°') return 'cover-science';
+    return 'cover-tech';
+  }
+
+  getCategoryEmoji(cat: string): string {
+    if (cat === 'РњРёСЃС‚РµС†С‚РІРѕ') return 'рџЋ¬';
+    if (cat === 'РЎРїРѕСЂС‚') return 'рџЏѓ';
+    if (cat === 'РћСЃРІС–С‚Р° С‚Р° РЅР°СѓРєР°') return 'рџ”¬';
+    return 'рџ’»';
+  }
+
+  load() {
+    this.loading.set(true);
+    this.api.getCommunities(this.search, this.category, this.privacyFilter).subscribe({
+      next: data => { this.communities.set(data); this.loading.set(false); },
+      error: () => { this.error.set('РџРѕРјРёР»РєР° Р·Р°РІР°РЅС‚Р°Р¶РµРЅРЅСЏ РєР°С‚Р°Р»РѕРіСѓ.'); this.loading.set(false); }
+    });
+  }
+
+  createCommunity() {
+    if (!this.newName.trim() || !this.newDescription.trim()) return;
+    this.submitting = true;
+    this.error.set('');
+    this.api.createCommunity({
+      name: this.newName,
+      category: this.newCategory,
+      description: this.newDescription,
+      isPrivate: this.newIsPrivate
+    }).subscribe({
+      next: () => {
+        this.submitting = false;
+        this.showCreate = false;
+        this.newName = '';
+        this.newDescription = '';
+        this.message.set('РЎРїС–Р»СЊРЅРѕС‚Сѓ СѓСЃРїС–С€РЅРѕ СЃС‚РІРѕСЂРµРЅРѕ!');
+        this.load();
+      },
+      error: err => {
+        this.submitting = false;
+        this.error.set(err.error?.message || 'РќРµ РІРґР°Р»РѕСЃСЏ СЃС‚РІРѕСЂРёС‚Рё СЃРїС–Р»СЊРЅРѕС‚Сѓ.');
+      }
+    });
+  }
+
+  join(c: Community) {
+    this.error.set('');
+    this.message.set('');
+    const note = c.isPrivate ? (prompt('РљРѕРјРµРЅС‚Р°СЂ РґРѕ Р·Р°СЏРІРєРё (РЅРµРѕР±РѕРІвЂ™СЏР·РєРѕРІРѕ):') || '') : '';
+    this.api.joinCommunity(c.id, note).subscribe({
+      next: res => { this.message.set(res.message); this.load(); },
+      error: err => this.error.set(err.error?.message || 'РџРѕРјРёР»РєР° РїРѕРґР°С‡С– Р·Р°СЏРІРєРё.')
+    });
+  }
+}
+
+==================== FILE: client\src\app\pages\community-detail.page.ts ====================
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService } from '../services/api.service';
+import { AuthService } from '../services/auth.service';
+import { Community, CommunityPost, ClubEvent } from '../models/api.models';
+
+@Component({
+  selector: 'app-community-detail-page',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  template: `
+    @if (loading()) {
+      <p class="muted">Завантаження сторінки спільноти...</p>
+    } @else if (!community()) {
+      <div class="alert alert-error">Спільноту не знайдено або вона заблокована.</div>
+    } @else {
+      @let c = community()!;
+
+      @if (message()) { <div class="alert alert-success">{{ message() }}</div> }
+      @if (error()) { <div class="alert alert-error">{{ error() }}</div> }
+
+      <div class="card">
+        <div class="flex-between">
+          <div class="flex-gap">
+            <span class="badge" [class.badge-private]="c.isPrivate" [class.badge-public]="!c.isPrivate">
+              {{ c.isPrivate ? 'Закрита спільнота' : 'Відкрита спільнота' }}
+            </span>
+            <span class="muted">{{ c.category }}</span>
+          </div>
+
+          @if (auth.role() === 'Moderator') {
+            <button class="btn btn-danger btn-sm" (click)="toggleBlock(!c.isBlocked)">
+              {{ c.isBlocked ? 'Розблокувати спільноту' : 'Заблокувати спільноту' }}
+            </button>
+          }
+        </div>
+
+        <h1 style="margin:0.5rem 0;">{{ c.name }}</h1>
+        <p>{{ c.description }}</p>
+
+        <div class="flex-between" style="border-top:1px solid var(--border); padding-top:0.8rem; margin-top:0.8rem;">
+          <span class="muted">Організатор: <strong>{{ c.organizerName }}</strong> • Учасників: <strong>{{ c.membersCount }}</strong></span>
+
+          <div class="flex-gap">
+            @if (auth.isLoggedIn() && !c.isOrganizer) {
+              @if (c.myMembershipStatus === 'Approved') {
+                <span class="badge badge-success">Ви чинний учасник</span>
+                <button class="btn btn-danger btn-sm" (click)="leave()">Вийти зі спільноти</button>
+              } @else if (c.myMembershipStatus === 'Pending') {
+                <span class="badge badge-warn">Заявка очікує погодження</span>
+              } @else {
+                <button class="btn btn-sm" (click)="join()">{{ c.isPrivate ? 'Подати заявку на вступ' : 'Вступити до клубу' }}</button>
+              }
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Панель організатора: погодження заявок та керування учасниками -->
+      @if (c.isOrganizer) {
+        <div class="card">
+          <h2 style="margin-top:0;">Керування членством (Панель організатора)</h2>
+          <h3>Заявки на вступ ({{ c.pendingRequests?.length || 0 }})</h3>
+          @if (!c.pendingRequests?.length) {
+            <p class="muted">Нових заявок немає.</p>
+          } @else {
+            @for (req of c.pendingRequests; track req.id) {
+              <div class="flex-between" style="padding:0.6rem; border:1px solid var(--border); border-radius:6px; margin-bottom:0.5rem;">
+                <div>
+                  <strong>{{ req.userName }}</strong> ({{ req.userEmail }})
+                  @if (req.applicationNote) { <div class="muted">Примітка: «{{ req.applicationNote }}»</div> }
+                </div>
+                <div class="flex-gap">
+                  <button class="btn btn-sm" (click)="review(req.id, true)">Схвалити</button>
+                  <button class="btn btn-danger btn-sm" (click)="review(req.id, false)">Відхилити</button>
+                </div>
+              </div>
+            }
+          }
+
+          <h3>Чинні учасники ({{ c.approvedMembers?.length || 0 }})</h3>
+          @if (!c.approvedMembers?.length) {
+            <p class="muted">Учасників поки що немає.</p>
+          } @else {
+            @for (m of c.approvedMembers; track m.id) {
+              <div class="flex-between" style="padding:0.5rem; border-bottom:1px solid var(--border);">
+                <span>{{ m.userName }} ({{ m.userEmail }})</span>
+                <button class="btn btn-secondary btn-sm" (click)="revoke(m.id)">Відкликати членство</button>
+              </div>
+            }
+          }
+        </div>
+      }
+
+      <!-- Перевірка доступу до закритого контенту -->
+      @if (!c.canViewPrivateContent) {
+        <div class="alert alert-info">
+          <strong>Закритий розділ:</strong> публікації та внутрішні події цієї спільноти доступні лише схваленим учасникам.
+          Подайте заявку на вступ та дочекайтеся підтвердження організатора.
+        </div>
+      } @else {
+        <!-- Події спільноти -->
+        <div class="card">
+          <div class="flex-between">
+            <h2 style="margin:0;">Події спільноти</h2>
+            @if (c.isOrganizer) {
+              <button class="btn btn-sm" (click)="showEventForm = !showEventForm">
+                {{ showEventForm ? 'Скасувати' : '+ Додати подію' }}
+              </button>
+            }
+          </div>
+
+          @if (showEventForm) {
+            <form (ngSubmit)="createEvent()" style="margin-top:1rem; padding-top:1rem; border-top:1px solid var(--border);">
+              <div class="form-group">
+                <label>Назва події *</label>
+                <input class="form-control" [(ngModel)]="evTitle" name="evTitle" required />
+              </div>
+              <div class="form-group">
+                <label>Опис *</label>
+                <textarea class="form-control" rows="2" [(ngModel)]="evDesc" name="evDesc" required></textarea>
+              </div>
+              <div class="flex-gap">
+                <div class="form-group" style="flex:1; min-width:200px;">
+                  <label>Локація *</label>
+                  <input class="form-control" [(ngModel)]="evLocation" name="evLocation" required />
+                </div>
+                <div class="form-group">
+                  <label>Дата та час *</label>
+                  <input type="datetime-local" class="form-control" [(ngModel)]="evStartsAt" name="evStartsAt" required />
+                </div>
+                <div class="form-group" style="width:140px;">
+                  <label>Ліміт місць *</label>
+                  <input type="number" min="1" class="form-control" [(ngModel)]="evCapacity" name="evCapacity" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label style="display:flex; gap:0.5rem; align-items:center;">
+                  <input type="checkbox" [(ngModel)]="evPrivate" name="evPrivate" />
+                  Лише для учасників клубу
+                </label>
+              </div>
+              <button class="btn btn-sm" type="submit">Опублікувати подію</button>
+            </form>
+          }
+
+          <div style="margin-top:1rem;">
+            @if (events().length === 0) {
+              <p class="muted">Запланованих подій поки немає.</p>
+            } @else {
+              @for (ev of events(); track ev.id) {
+                <div style="padding:0.8rem; border:1px solid var(--border); border-radius:8px; margin-bottom:0.6rem;">
+                  <div class="flex-between">
+                    <strong>{{ ev.title }}</strong>
+                    <span class="badge badge-public">Місць: {{ ev.confirmedCount }} / {{ ev.maxCapacity }} (Черга: {{ ev.waitlistCount }})</span>
+                  </div>
+                  <div class="muted" style="margin:0.3rem 0;">{{ ev.startsAt | date:'dd.MM.yyyy HH:mm' }} • {{ ev.location }}</div>
+                  <p style="margin:0.4rem 0;">{{ ev.description }}</p>
+                  @if (auth.isLoggedIn()) {
+                    @if (ev.myRegistrationStatus === 'Confirmed') {
+                      <span class="badge badge-success">Ви зареєстровані</span>
+                    } @else if (ev.myRegistrationStatus === 'Waitlisted') {
+                      <span class="badge badge-warn">Ви у списку очікування</span>
+                    } @else {
+                      <button class="btn btn-sm" (click)="registerEvent(ev.id)">
+                        {{ ev.availableSeats > 0 ? 'Зареєструватися' : 'Стати в чергу очікування' }}
+                      </button>
+                    }
+                  }
+                </div>
+              }
+            }
+          </div>
+        </div>
+
+        <!-- Публікації спільноти -->
+        <div class="card">
+          <div class="flex-between">
+            <h2 style="margin:0;">Публікації та обговорення</h2>
+            @if (c.isOrganizer || c.myMembershipStatus === 'Approved') {
+              <button class="btn btn-sm" (click)="showPostForm = !showPostForm">
+                {{ showPostForm ? 'Скасувати' : '+ Новий допис' }}
+              </button>
+            }
+          </div>
+
+          @if (showPostForm) {
+            <form (ngSubmit)="createPost()" style="margin-top:1rem; padding-top:1rem; border-top:1px solid var(--border);">
+              <div class="form-group">
+                <label>Заголовок *</label>
+                <input class="form-control" [(ngModel)]="postTitle" name="postTitle" required />
+              </div>
+              <div class="form-group">
+                <label>Текст допису *</label>
+                <textarea class="form-control" rows="3" [(ngModel)]="postContent" name="postContent" required></textarea>
+              </div>
+              @if (!c.isPrivate) {
+                <div class="form-group">
+                  <label style="display:flex; gap:0.5rem; align-items:center;">
+                    <input type="checkbox" [(ngModel)]="postMembersOnly" name="postMembersOnly" />
+                    Закритий допис (лише для чинних учасників)
+                  </label>
+                </div>
+              }
+              <button class="btn btn-sm" type="submit">Опублікувати</button>
+            </form>
+          }
+
+          <div style="margin-top:1rem;">
+            @if (posts().length === 0) {
+              <p class="muted">У цій спільноті ще немає публікацій.</p>
+            } @else {
+              @for (p of posts(); track p.id) {
+                <div style="padding:0.9rem; border:1px solid var(--border); border-radius:8px; margin-bottom:0.7rem;">
+                  <div class="flex-between">
+                    <strong>{{ p.title }}</strong>
+                    <div class="flex-gap">
+                      @if (p.isMembersOnly) { <span class="badge badge-private">Для учасників</span> }
+                      @if (p.isHiddenByModerator) { <span class="badge badge-danger">Приховано: {{ p.moderationReason }}</span> }
+                      @if (auth.role() === 'Moderator' && !p.isHiddenByModerator) {
+                        <button class="btn btn-danger btn-sm" (click)="hidePost(p.id)">Приховати</button>
+                      }
+                    </div>
+                  </div>
+                  <div class="muted" style="font-size:0.83rem; margin-bottom:0.4rem;">
+                    Автор: {{ p.authorName }} • {{ p.createdAt | date:'dd.MM.yyyy HH:mm' }}
+                  </div>
+                  <p style="margin:0; white-space:pre-line;">{{ p.content }}</p>
+                </div>
+              }
+            }
+          </div>
+        </div>
+      }
+    }
+  `
+})
+export class CommunityDetailPageComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private api = inject(ApiService);
+  auth = inject(AuthService);
+
+  community = signal<Community | null>(null);
+  posts = signal<CommunityPost[]>([]);
+  events = signal<ClubEvent[]>([]);
+  loading = signal(true);
+  message = signal('');
+  error = signal('');
+
+  showPostForm = false;
+  postTitle = '';
+  postContent = '';
+  postMembersOnly = false;
+
+  showEventForm = false;
+  evTitle = '';
+  evDesc = '';
+  evLocation = '';
+  evStartsAt = '';
+  evCapacity = 10;
+  evPrivate = false;
+
+  private communityId = 0;
+
+  ngOnInit() {
+    this.communityId = Number(this.route.snapshot.paramMap.get('id'));
+    this.loadAll();
+  }
+
+  loadAll() {
+    this.loading.set(true);
+    this.api.getCommunity(this.communityId).subscribe({
+      next: c => {
+        this.community.set(c);
+        this.loading.set(false);
+        if (c.canViewPrivateContent) {
+          this.api.getCommunityPosts(this.communityId).subscribe(p => this.posts.set(p));
+          this.api.getEvents(this.communityId).subscribe(e => this.events.set(e));
+        }
+      },
+      error: () => { this.community.set(null); this.loading.set(false); }
+    });
+  }
+
+  join() {
+    const c = this.community()!;
+    const note = c.isPrivate ? (prompt('Коментар до заявки (необов’язково):') || '') : '';
+    this.api.joinCommunity(c.id, note).subscribe({
+      next: res => { this.message.set(res.message); this.loadAll(); },
+      error: err => this.error.set(err.error?.message || 'Помилка.')
+    });
+  }
+
+  leave() {
+    if (!confirm('Вийти зі спільноти? Ваші активні реєстрації на майбутні події цього клубу будуть автоматично скасовані.')) return;
+    this.api.leaveCommunity(this.communityId).subscribe({
+      next: res => { this.message.set(res.message); this.loadAll(); },
+      error: err => this.error.set(err.error?.message || 'Помилка виходу.')
+    });
+  }
+
+  review(membershipId: number, approve: boolean) {
+    this.api.reviewMembership(this.communityId, membershipId, approve).subscribe({
+      next: () => { this.message.set(approve ? 'Заявку схвалено.' : 'Заявку відхилено.'); this.loadAll(); }
+    });
+  }
+
+  revoke(membershipId: number) {
+    if (!confirm('Відкликати членство учасника та скасувати його майбутні реєстрації на події клубу?')) return;
+    this.api.revokeMembership(this.communityId, membershipId).subscribe({
+      next: res => { this.message.set(res.message); this.loadAll(); }
+    });
+  }
+
+  toggleBlock(block: boolean) {
+    this.api.toggleBlockCommunity(this.communityId, block).subscribe({
+      next: () => { this.message.set(block ? 'Спільноту заблоковано.' : 'Спільноту розблоковано.'); this.loadAll(); }
+    });
+  }
+
+  createPost() {
+    if (!this.postTitle.trim() || !this.postContent.trim()) return;
+    this.api.createPost({
+      communityId: this.communityId,
+      title: this.postTitle,
+      content: this.postContent,
+      isMembersOnly: this.postMembersOnly
+    }).subscribe({
+      next: () => {
+        this.showPostForm = false;
+        this.postTitle = '';
+        this.postContent = '';
+        this.message.set('Публікацію додано.');
+        this.loadAll();
+      },
+      error: err => this.error.set(err.error?.message || 'Помилка створення допису.')
+    });
+  }
+
+  hidePost(postId: number) {
+    const reason = prompt('Вкажіть причину приховання публікації (обов’язково):');
+    if (!reason?.trim()) return;
+    this.api.moderatePost(postId, true, reason).subscribe({
+      next: () => { this.message.set('Публікацію приховано модератором.'); this.loadAll(); }
+    });
+  }
+
+  createEvent() {
+    if (!this.evTitle.trim() || !this.evStartsAt) return;
+    this.api.createEvent({
+      communityId: this.communityId,
+      title: this.evTitle,
+      description: this.evDesc,
+      location: this.evLocation,
+      startsAt: new Date(this.evStartsAt).toISOString(),
+      maxCapacity: this.evCapacity,
+      isPrivateForMembersOnly: this.evPrivate
+    }).subscribe({
+      next: () => {
+        this.showEventForm = false;
+        this.evTitle = '';
+        this.evDesc = '';
+        this.message.set('Подію створено!');
+        this.loadAll();
+      },
+      error: err => this.error.set(err.error?.message || 'Помилка створення події.')
+    });
+  }
+
+  registerEvent(eventId: number) {
+    this.error.set('');
+    this.api.registerForEvent(eventId).subscribe({
+      next: res => { this.message.set(res.message); this.loadAll(); },
+      error: err => this.error.set(err.error?.message || 'Помилка реєстрації.')
+    });
+  }
+}
+
+
+==================== FILE: client\src\app\pages\events.page.ts ====================
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { ApiService } from '../services/api.service';
+import { AuthService } from '../services/auth.service';
+import { ClubEvent } from '../models/api.models';
+
+@Component({
+  selector: 'app-events-page',
+  standalone: true,
+  imports: [CommonModule, RouterLink],
+  template: `
+    <div style="margin-bottom:1.25rem;">
+      <h1 style="margin:0;">рџ“… РљР°Р»РµРЅРґР°СЂ РєР»СѓР±РЅРёС… РїРѕРґС–Р№</h1>
+      <p class="muted" style="margin:0.25rem 0 0;">РђРєС‚СѓР°Р»СЊРЅС– РІРѕСЂРєС€РѕРїРё, Р·СѓСЃС‚СЂС–С‡С– С‚Р° РјС–С‚Р°РїРё СЃРїС–Р»СЊРЅРѕС‚ С–Р· РєРѕРЅС‚СЂРѕР»РµРј РјС–СЃС†СЊ С‚Р° Р°РІС‚РѕРјР°С‚РёС‡РЅРѕСЋ С‡РµСЂРіРѕСЋ РѕС‡С–РєСѓРІР°РЅРЅСЏ</p>
+    </div>
+
+    @if (message()) { <div class="alert alert-success">{{ message() }}</div> }
+    @if (error()) { <div class="alert alert-error">{{ error() }}</div> }
+
+    @if (loading()) {
+      <p class="muted">Р—Р°РІР°РЅС‚Р°Р¶РµРЅРЅСЏ СЂРѕР·РєР»Р°РґСѓ...</p>
+    } @else if (events().length === 0) {
+      <div class="card">РќР°СЂР°Р·С– РґРѕСЃС‚СѓРїРЅРёС… РїРѕРґС–Р№ РЅРµРјР°С”.</div>
+    } @else {
+      <div class="grid">
+        @for (ev of events(); track ev.id) {
+          <article class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div class="flex-between" style="margin-bottom:0.5rem;">
+                <a [routerLink]="['/communities', ev.communityId]" class="badge badge-public">
+                  рџЏ›пёЏ {{ ev.communityName }}
+                </a>
+                <span class="badge" [class.badge-warn]="ev.availableSeats === 0" [class.badge-success]="ev.availableSeats > 0">
+                  {{ ev.availableSeats > 0 ? 'Р’С–Р»СЊРЅРѕ: ' + ev.availableSeats + ' Р· ' + ev.maxCapacity : 'РњС–СЃС†СЊ РЅРµРјР°С” (Р§РµСЂРіР°: ' + ev.waitlistCount + ')' }}
+                </span>
+              </div>
+
+              <h3 style="margin:0.35rem 0; font-size:1.15rem;">{{ ev.title }}</h3>
+
+              <div class="muted" style="font-size:0.88rem; margin-bottom:0.65rem; display:flex; flex-direction:column; gap:0.2rem;">
+                <span>рџ—“пёЏ <strong>{{ ev.startsAt | date:'dd.MM.yyyy Рѕ HH:mm' }}</strong></span>
+                <span>рџ“Ќ {{ ev.location }}</span>
+              </div>
+
+              <p class="muted" style="margin:0 0 0.85rem;">{{ ev.description }}</p>
+
+              <div style="margin-bottom:0.5rem;">
+                <div class="flex-between" style="font-size:0.8rem; color:var(--muted);">
+                  <span>Р—Р°РїРѕРІРЅРµРЅС–СЃС‚СЊ Р·Р°Р»Сѓ</span>
+                  <span><strong>{{ ev.confirmedCount }}</strong> / {{ ev.maxCapacity }} РјС–СЃС†СЊ</span>
+                </div>
+                <div class="progress-track">
+                  <div class="progress-fill" [class.progress-full]="ev.availableSeats === 0"
+                       [style.width.%]="(ev.confirmedCount / ev.maxCapacity) * 100"></div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:0.75rem; padding-top:0.75rem; border-top:1px solid var(--border);">
+              @if (!auth.isLoggedIn()) {
+                <a routerLink="/login" class="btn btn-secondary btn-sm" style="width:100%;">РЈРІС–Р№РґС–С‚СЊ РґР»СЏ СЂРµС”СЃС‚СЂР°С†С–С—</a>
+              } @else if (ev.myRegistrationStatus === 'Confirmed') {
+                <div class="flex-between">
+                  <span class="badge badge-success">вњ“ РЈС‡Р°СЃС‚СЊ РїС–РґС‚РІРµСЂРґР¶РµРЅРѕ</span>
+                  <button class="btn btn-danger btn-sm" (click)="cancel(ev.id)">РЎРєР°СЃСѓРІР°С‚Рё</button>
+                </div>
+              } @else if (ev.myRegistrationStatus === 'Waitlisted') {
+                <div class="flex-between">
+                  <span class="badge badge-warn">вЏі РЈ С‡РµСЂР·С– РѕС‡С–РєСѓРІР°РЅРЅСЏ</span>
+                  <button class="btn btn-danger btn-sm" (click)="cancel(ev.id)">Р’РёР№С‚Рё Р· С‡РµСЂРіРё</button>
+                </div>
+              } @else {
+                <button class="btn btn-sm" style="width:100%;" (click)="register(ev.id)">
+                  {{ ev.availableSeats > 0 ? 'рџЋџпёЏ Р—Р°СЂРµС”СЃС‚СЂСѓРІР°С‚РёСЃСЏ РЅР° РїРѕРґС–СЋ' : 'вЏі РЎС‚Р°С‚Рё РІ СЃРїРёСЃРѕРє РѕС‡С–РєСѓРІР°РЅРЅСЏ' }}
+                </button>
+              }
+            </div>
+          </article>
+        }
+      </div>
+    }
+  `
+})
+export class EventsPageComponent implements OnInit {
+  private api = inject(ApiService);
+  auth = inject(AuthService);
+
+  events = signal<ClubEvent[]>([]);
+  loading = signal(true);
+  message = signal('');
+  error = signal('');
+
+  ngOnInit() { this.load(); }
+
+  load() {
+    this.loading.set(true);
+    this.api.getEvents().subscribe({
+      next: data => { this.events.set(data); this.loading.set(false); },
+      error: () => { this.error.set('РќРµ РІРґР°Р»РѕСЃСЏ Р·Р°РІР°РЅС‚Р°Р¶РёС‚Рё РїРѕРґС–С—.'); this.loading.set(false); }
+    });
+  }
+
+  register(id: number) {
+    this.error.set('');
+    this.message.set('');
+    this.api.registerForEvent(id).subscribe({
+      next: res => { this.message.set(res.message); this.load(); },
+      error: err => this.error.set(err.error?.message || 'РџРѕРјРёР»РєР° СЂРµС”СЃС‚СЂР°С†С–С—.')
+    });
+  }
+
+  cancel(id: number) {
+    this.error.set('');
+    this.message.set('');
+    this.api.cancelRegistration(id).subscribe({
+      next: res => { this.message.set(res.message); this.load(); },
+      error: err => this.error.set(err.error?.message || 'РџРѕРјРёР»РєР° СЃРєР°СЃСѓРІР°РЅРЅСЏ.')
+    });
+  }
+}
+
+==================== FILE: client\src\app\pages\login.page.ts ====================
+import { Component, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+
+@Component({
+  selector: 'app-login-page',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  template: `
+    <div style="max-width:460px; margin:1.5rem auto;">
+      <div class="card">
+        <div class="flex-gap" style="margin-bottom:1rem;">
+          <button class="btn btn-sm" [class.btn-secondary]="isRegister" (click)="isRegister = false">Вхід</button>
+          <button class="btn btn-sm" [class.btn-secondary]="!isRegister" (click)="isRegister = true">Реєстрація</button>
+        </div>
+
+        <h1 style="margin-top:0;">{{ isRegister ? 'Реєстрація в системі' : 'Вхід до платформи' }}</h1>
+
+        @if (error()) { <div class="alert alert-error">{{ error() }}</div> }
+
+        <form (ngSubmit)="submit()">
+          @if (isRegister) {
+            <div class="form-group">
+              <label for="fullName">Прізвище та ім’я *</label>
+              <input id="fullName" class="form-control" [(ngModel)]="fullName" name="fullName" required />
+            </div>
+          }
+          <div class="form-group">
+            <label for="email">Електронна пошта *</label>
+            <input id="email" type="email" class="form-control" [(ngModel)]="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="password">Пароль (мін. 8 символів) *</label>
+            <input id="password" type="password" class="form-control" [(ngModel)]="password" name="password" required minlength="8" />
+          </div>
+          @if (isRegister) {
+            <div class="form-group">
+              <label for="role">Роль користувача</label>
+              <select id="role" class="form-control" [(ngModel)]="role" name="role">
+                <option [ngValue]="0">Учасник спільнот</option>
+                <option [ngValue]="1">Організатор клубу</option>
+              </select>
+            </div>
+          }
+          <button class="btn" style="width:100%;" type="submit">{{ isRegister ? 'Зареєструватися' : 'Увійти' }}</button>
+        </form>
+
+        <div style="margin-top:1.25rem; padding-top:1rem; border-top:1px solid var(--border);">
+          <p class="muted" style="margin:0 0 0.5rem;"><strong>Швидкий вхід для демонстрації (тестові ролі):</strong></p>
+          <div class="flex-gap">
+            <button type="button" class="btn btn-secondary btn-sm" (click)="demoLogin('user@club.ua', 'User12345!')">Учасник (Андрій)</button>
+            <button type="button" class="btn btn-secondary btn-sm" (click)="demoLogin('maria@club.ua', 'User12345!')">Учасниця (Марія)</button>
+            <button type="button" class="btn btn-secondary btn-sm" (click)="demoLogin('organizer@club.ua', 'Organizer123!')">Організатор (Олена)</button>
+            <button type="button" class="btn btn-secondary btn-sm" (click)="demoLogin('moderator@club.ua', 'Moderator123!')">Модератор (Ігор)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `
+})
+export class LoginPageComponent {
+  private auth = inject(AuthService);
+  private router = inject(Router);
+
+  isRegister = false;
+  fullName = '';
+  email = '';
+  password = '';
+  role = 0;
+  error = signal('');
+
+  submit() {
+    this.error.set('');
+    const obs = this.isRegister
+      ? this.auth.register(this.fullName, this.email, this.password, this.role)
+      : this.auth.login(this.email, this.password);
+
+    obs.subscribe({
+      next: () => this.router.navigateByUrl('/'),
+      error: err => this.error.set(err.error?.message || 'Помилка автентифікації.')
+    });
+  }
+
+  demoLogin(email: string, pass: string) {
+    this.email = email;
+    this.password = pass;
+    this.isRegister = false;
+    this.submit();
+  }
+}
+
+
+==================== FILE: client\src\app\pages\my-events.page.ts ====================
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ApiService } from '../services/api.service';
+import { MyRegistration } from '../models/api.models';
+
+@Component({
+  selector: 'app-my-events-page',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <h1>Мої реєстрації та участь у подіях</h1>
+    <p class="muted">Особистий розклад підтверджених подій та позицій у списку очікування</p>
+
+    @if (message()) { <div class="alert alert-success">{{ message() }}</div> }
+
+    @if (loading()) {
+      <p class="muted">Завантаження...</p>
+    } @else if (items().length === 0) {
+      <div class="card">Ви ще не зареєстровані на жодну подію.</div>
+    } @else {
+      @for (item of items(); track item.id) {
+        <div class="card flex-between">
+          <div>
+            <div class="flex-gap" style="margin-bottom:0.3rem;">
+              <span class="badge" [class.badge-success]="item.status === 'Confirmed'" [class.badge-warn]="item.status === 'Waitlisted'">
+                {{ item.status === 'Confirmed' ? 'Підтверджено' : 'Список очікування (Waitlist)' }}
+              </span>
+              <span class="muted">{{ item.communityName }}</span>
+            </div>
+            <h3 style="margin:0.2rem 0;">{{ item.eventTitle }}</h3>
+            <div class="muted">📅 {{ item.startsAt | date:'dd.MM.yyyy HH:mm' }} • 📍 {{ item.location }}</div>
+          </div>
+          <button class="btn btn-danger btn-sm" (click)="cancel(item.eventId)">Скасувати участь</button>
+        </div>
+      }
+    }
+  `
+})
+export class MyEventsPageComponent implements OnInit {
+  private api = inject(ApiService);
+  items = signal<MyRegistration[]>([]);
+  loading = signal(true);
+  message = signal('');
+
+  ngOnInit() { this.load(); }
+
+  load() {
+    this.loading.set(true);
+    this.api.getMyRegistrations().subscribe({
+      next: data => { this.items.set(data); this.loading.set(false); },
+      error: () => this.loading.set(false)
+    });
+  }
+
+  cancel(eventId: number) {
+    this.api.cancelRegistration(eventId).subscribe({
+      next: res => { this.message.set(res.message); this.load(); }
+    });
+  }
+}
+
+
+==================== FILE: client\src\app\services\api.service.ts ====================
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Community, ClubEvent, MyRegistration, CommunityPost } from '../models/api.models';
+
+@Injectable({ providedIn: 'root' })
+export class ApiService {
+  constructor(private http: HttpClient) {}
+
+  getCommunities(search?: string, category?: string, isPrivate?: string) {
+    let params = new HttpParams();
+    if (search) params = params.set('search', search);
+    if (category) params = params.set('category', category);
+    if (isPrivate === 'true' || isPrivate === 'false') params = params.set('isPrivate', isPrivate);
+    return this.http.get<Community[]>('/api/communities', { params });
+  }
+
+  getCommunity(id: number) {
+    return this.http.get<Community>(`/api/communities/${id}`);
+  }
+
+  createCommunity(data: { name: string; category: string; description: string; isPrivate: boolean }) {
+    return this.http.post('/api/communities', data);
+  }
+
+  joinCommunity(id: number, applicationNote?: string) {
+    return this.http.post<{ status: string; message: string }>(`/api/communities/${id}/join`, { applicationNote });
+  }
+
+  leaveCommunity(id: number) {
+    return this.http.post<{ message: string }>(`/api/communities/${id}/leave`, {});
+  }
+
+  reviewMembership(communityId: number, membershipId: number, approve: boolean) {
+    return this.http.post(`/api/communities/${communityId}/memberships/${membershipId}/review`, { approve });
+  }
+
+  revokeMembership(communityId: number, membershipId: number) {
+    return this.http.post<{ message: string }>(`/api/communities/${communityId}/memberships/${membershipId}/revoke`, {});
+  }
+
+  toggleBlockCommunity(id: number, block: boolean) {
+    return this.http.post(`/api/communities/${id}/block`, block);
+  }
+
+  getEvents(communityId?: number) {
+    let params = new HttpParams();
+    if (communityId) params = params.set('communityId', communityId);
+    return this.http.get<ClubEvent[]>('/api/events', { params });
+  }
+
+  getMyRegistrations() {
+    return this.http.get<MyRegistration[]>('/api/events/my');
+  }
+
+  createEvent(data: {
+    communityId: number;
+    title: string;
+    description: string;
+    location: string;
+    startsAt: string;
+    maxCapacity: number;
+    isPrivateForMembersOnly: boolean;
+  }) {
+    return this.http.post('/api/events', data);
+  }
+
+  registerForEvent(eventId: number) {
+    return this.http.post<{ status: string; message: string }>(`/api/events/${eventId}/register`, {});
+  }
+
+  cancelRegistration(eventId: number) {
+    return this.http.post<{ message: string }>(`/api/events/${eventId}/cancel`, {});
+  }
+
+  getCommunityPosts(communityId: number) {
+    return this.http.get<CommunityPost[]>(`/api/posts/community/${communityId}`);
+  }
+
+  createPost(data: { communityId: number; title: string; content: string; isMembersOnly: boolean }) {
+    return this.http.post('/api/posts', data);
+  }
+
+  moderatePost(postId: number, hide: boolean, reason?: string) {
+    return this.http.post(`/api/posts/${postId}/moderate`, { hide, reason });
+  }
+}
+
+
+==================== FILE: client\src\app\services\auth.service.ts ====================
+import { Injectable, signal, computed } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { tap } from 'rxjs';
+import { AuthResponse } from '../models/api.models';
+
+@Injectable({ providedIn: 'root' })
+export class AuthService {
+  private readonly storageKey = 'club_platform_auth';
+  private userSignal = signal<AuthResponse | null>(this.loadFromStorage());
+
+  user = this.userSignal.asReadonly();
+  isLoggedIn = computed(() => !!this.userSignal());
+  role = computed(() => this.userSignal()?.role ?? null);
+
+  constructor(private http: HttpClient) {}
+
+  login(email: string, password: string) {
+    return this.http.post<AuthResponse>('/api/auth/login', { email, password }).pipe(
+      tap(res => this.saveAuth(res))
+    );
+  }
+
+  register(fullName: string, email: string, password: string, role: number) {
+    return this.http.post<AuthResponse>('/api/auth/register', { fullName, email, password, role }).pipe(
+      tap(res => this.saveAuth(res))
+    );
+  }
+
+  logout() {
+    localStorage.removeItem(this.storageKey);
+    this.userSignal.set(null);
+  }
+
+  getToken(): string | null {
+    return this.userSignal()?.token ?? null;
+  }
+
+  private saveAuth(res: AuthResponse) {
+    localStorage.setItem(this.storageKey, JSON.stringify(res));
+    this.userSignal.set(res);
+  }
+
+  private loadFromStorage(): AuthResponse | null {
+    try {
+      const raw = localStorage.getItem(this.storageKey);
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  }
+}
+
+
+==================== FILE: Server\appsettings.Development.json ====================
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  }
+}
+
+
+==================== FILE: Server\appsettings.json ====================
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=community_platform.db"
+  },
+  "Jwt": {
+    "Key": "DevSecretKey_ChangeInProduction_Minimum32CharsLong!",
+    "Issuer": "CommunityPlatformApi",
+    "Audience": "CommunityPlatformClient",
+    "ExpireHours": 12
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}
+
+
+==================== FILE: Server\Program.cs ====================
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Server.Data;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
+builder.Services.AddOpenApi();
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+var jwtKey = builder.Configuration["Jwt:Key"]!;
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+        };
+    });
+
+builder.Services.AddAuthorization();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngular", policy =>
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod());
+});
+
+var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.EnsureCreated();
+    DbSeeder.Seed(db);
+}
+
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+}
+
+app.UseCors("AllowAngular");
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapGet("/api/health", () => Results.Ok(new { status = "Healthy", timestamp = DateTime.UtcNow }));
+app.MapControllers();
+
+app.Run();
+
+
+==================== FILE: Server\Server.csproj ====================
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.0" />
+  </ItemGroup>
+
+</Project>
+
+
+==================== FILE: Server\Server.http ====================
+@Server_HostAddress = http://localhost:5210
+
+GET {{Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+
+==================== FILE: Server\WeatherForecast.cs ====================
+namespace Server;
+
+public class WeatherForecast
+{
+    public DateOnly Date { get; set; }
+
+    public int TemperatureC { get; set; }
+
+    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+
+    public string? Summary { get; set; }
+}
+
+
+==================== FILE: Server\Controllers\AuthController.cs ====================
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Server.Data;
+using Server.Models;
+using Server.Services;
+
+namespace Server.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class AuthController : ControllerBase
+{
+    private readonly AppDbContext _db;
+    private readonly IConfiguration _config;
+
+    public AuthController(AppDbContext db, IConfiguration config)
+    {
+        _db = db;
+        _config = config;
+    }
+
+    [HttpPost("register")]
+    public async Task<ActionResult<AuthResponse>> Register(RegisterRequest req)
+    {
+        if (await _db.Users.AnyAsync(u => u.Email.ToLower() == req.Email.ToLower()))
+            return Conflict(new { message = "Користувач із такою електронною поштою вже існує." });
+
+        // Забороняємо самостійну реєстрацію модератора через публічну форму
+        var assignedRole = req.Role == UserRole.Moderator ? UserRole.Participant : req.Role;
+
+        var user = new User
+        {
+            FullName = req.FullName.Trim(),
+            Email = req.Email.Trim().ToLower(),
+            PasswordHash = PasswordHasher.Hash(req.Password),
+            Role = assignedRole
+        };
+
+        _db.Users.Add(user);
+        await _db.SaveChangesAsync();
+
+        return Ok(BuildAuthResponse(user));
+    }
+
+    [HttpPost("login")]
+    public async Task<ActionResult<AuthResponse>> Login(LoginRequest req)
+    {
+        var user = await _db.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == req.Email.Trim().ToLower());
+        if (user == null || !PasswordHasher.Verify(req.Password, user.PasswordHash))
+            return Unauthorized(new { message = "Невірний email або пароль." });
+
+        return Ok(BuildAuthResponse(user));
+    }
+
+    private AuthResponse BuildAuthResponse(User user)
+    {
+        var claims = new[]
+        {
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim(ClaimTypes.Email, user.Email),
+            new Claim(ClaimTypes.Name, user.FullName),
+            new Claim(ClaimTypes.Role, user.Role.ToString())
+        };
+
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
+        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        var expires = DateTime.UtcNow.AddHours(int.Parse(_config["Jwt:ExpireHours"] ?? "12"));
+
+        var token = new JwtSecurityToken(
+            issuer: _config["Jwt:Issuer"],
+            audience: _config["Jwt:Audience"],
+            claims: claims,
+            expires: expires,
+            signingCredentials: creds
+        );
+
+        return new AuthResponse(
+            new JwtSecurityTokenHandler().WriteToken(token),
+            user.Id,
+            user.FullName,
+            user.Email,
+            user.Role.ToString()
+        );
+    }
+}
+
+
+==================== FILE: Server\Controllers\CommunitiesController.cs ====================
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Server.Data;
+using Server.Models;
+
+namespace Server.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class CommunitiesController : ControllerBase
+{
+    private readonly AppDbContext _db;
+
+    public CommunitiesController(AppDbContext db) => _db = db;
+
+    private int? CurrentUserId => int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out var id) ? id : null;
+    private string? CurrentUserRole => User.FindFirstValue(ClaimTypes.Role);
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll([FromQuery] string? search, [FromQuery] string? category, [FromQuery] bool? isPrivate)
+    {
+        var userId = CurrentUserId;
+        var isModerator = CurrentUserRole == nameof(UserRole.Moderator);
+
+        var query = _db.Communities
+            .Include(c => c.Organizer)
+            .Include(c => c.Memberships)
+            .AsQueryable();
+
+        if (!isModerator)
+            query = query.Where(c => !c.IsBlocked);
+
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            var term = search.Trim().ToLower();
+            query = query.Where(c => c.Name.ToLower().Contains(term) || c.Description.ToLower().Contains(term));
+        }
+
+        if (!string.IsNullOrWhiteSpace(category))
+            query = query.Where(c => c.Category == category);
+
+        if (isPrivate.HasValue)
+            query = query.Where(c => c.IsPrivate == isPrivate.Value);
+
+        var list = await query.OrderByDescending(c => c.CreatedAt).ToListAsync();
+
+        var result = list.Select(c =>
+        {
+            var myMembership = userId.HasValue ? c.Memberships.FirstOrDefault(m => m.UserId == userId.Value) : null;
+            return new
+            {
+                c.Id,
+                c.Name,
+                c.Category,
+                c.Description,
+                c.IsPrivate,
+                c.IsBlocked,
+                c.OrganizerId,
+                OrganizerName = c.Organizer?.FullName,
+                MembersCount = c.Memberships.Count(m => m.Status == MembershipStatus.Approved),
+                MyMembershipStatus = myMembership?.Status.ToString(),
+                IsOrganizer = userId.HasValue && c.OrganizerId == userId.Value
+            };
+        });
+
+        return Ok(result);
+    }
+
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var userId = CurrentUserId;
+        var isModerator = CurrentUserRole == nameof(UserRole.Moderator);
+
+        var community = await _db.Communities
+            .Include(c => c.Organizer)
+            .Include(c => c.Memberships).ThenInclude(m => m.User)
+            .FirstOrDefaultAsync(c => c.Id == id);
+
+        if (community == null || (community.IsBlocked && !isModerator))
+            return NotFound(new { message = "Спільноту не знайдено." });
+
+        var myMembership = userId.HasValue ? community.Memberships.FirstOrDefault(m => m.UserId == userId.Value) : null;
+        var isOrganizer = userId.HasValue && community.OrganizerId == userId.Value;
+        var isApprovedMember = myMembership?.Status == MembershipStatus.Approved || isOrganizer || isModerator;
+
+        return Ok(new
+        {
+            community.Id,
+            community.Name,
+            community.Category,
+            community.Description,
+            community.IsPrivate,
+            community.IsBlocked,
+            community.OrganizerId,
+            OrganizerName = community.Organizer?.FullName,
+            MembersCount = community.Memberships.Count(m => m.Status == MembershipStatus.Approved),
+            MyMembershipStatus = myMembership?.Status.ToString(),
+            IsOrganizer = isOrganizer,
+            CanViewPrivateContent = !community.IsPrivate || isApprovedMember,
+            PendingRequests = isOrganizer
+                ? community.Memberships.Where(m => m.Status == MembershipStatus.Pending).Select(m => new
+                {
+                    m.Id,
+                    m.UserId,
+                    UserName = m.User?.FullName,
+                    UserEmail = m.User?.Email,
+                    m.ApplicationNote,
+                    m.RequestedAt
+                })
+                : null,
+            ApprovedMembers = isOrganizer
+                ? community.Memberships.Where(m => m.Status == MembershipStatus.Approved).Select(m => new
+                {
+                    m.Id,
+                    m.UserId,
+                    UserName = m.User?.FullName,
+                    UserEmail = m.User?.Email,
+                    m.UpdatedAt
+                })
+                : null
+        });
+    }
+
+    [Authorize(Roles = "Organizer,Moderator")]
+    [HttpPost]
+    public async Task<IActionResult> Create(CreateCommunityRequest req)
+    {
+        var userId = CurrentUserId!.Value;
+        var community = new Community
+        {
+            Name = req.Name.Trim(),
+            Category = req.Category.Trim(),
+            Description = req.Description.Trim(),
+            IsPrivate = req.IsPrivate,
+            OrganizerId = userId
+        };
+
+        _db.Communities.Add(community);
+        await _db.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(GetById), new { id = community.Id }, new { community.Id, community.Name });
+    }
+
+    [Authorize]
+    [HttpPost("{id:int}/join")]
+    public async Task<IActionResult> Join(int id, [FromBody] JoinCommunityRequest? req)
+    {
+        var userId = CurrentUserId!.Value;
+        var community = await _db.Communities.FindAsync(id);
+        if (community == null || community.IsBlocked)
+            return NotFound(new { message = "Спільноту не знайдено." });
+
+        if (community.OrganizerId == userId)
+            return BadRequest(new { message = "Ви є організатором цієї спільноти." });
+
+        var existing = await _db.Memberships.FirstOrDefaultAsync(m => m.CommunityId == id && m.UserId == userId);
+
+        if (existing != null)
+        {
+            if (existing.Status == MembershipStatus.Approved)
+                return Conflict(new { message = "Ви вже є учасником цієї спільноти." });
+            if (existing.Status == MembershipStatus.Pending)
+                return Conflict(new { message = "Ваша заявка вже очікує розгляду." });
+
+            // Повторний вступ після виходу або відхилення
+            existing.Status = community.IsPrivate ? MembershipStatus.Pending : MembershipStatus.Approved;
+            existing.ApplicationNote = req?.ApplicationNote;
+            existing.UpdatedAt = DateTime.UtcNow;
+            await _db.SaveChangesAsync();
+
+            return Ok(new { status = existing.Status.ToString(), message = community.IsPrivate ? "Повторну заявку надіслано." : "Ви знову приєдналися до спільноти." });
+        }
+
+        var membership = new Membership
+        {
+            CommunityId = id,
+            UserId = userId,
+            Status = community.IsPrivate ? MembershipStatus.Pending : MembershipStatus.Approved,
+            ApplicationNote = req?.ApplicationNote
+        };
+
+        _db.Memberships.Add(membership);
+        await _db.SaveChangesAsync();
+
+        return Ok(new
+        {
+            status = membership.Status.ToString(),
+            message = community.IsPrivate ? "Заявку на вступ надіслано організатору." : "Ви успішно приєдналися до спільноти!"
+        });
+    }
+
+    [Authorize]
+    [HttpPost("{id:int}/leave")]
+    public async Task<IActionResult> Leave(int id)
+    {
+        var userId = CurrentUserId!.Value;
+        var membership = await _db.Memberships.FirstOrDefaultAsync(m => m.CommunityId == id && m.UserId == userId);
+        if (membership == null || membership.Status != MembershipStatus.Approved)
+            return BadRequest(new { message = "Ви не є активним учасником цієї спільноти." });
+
+        await RevokeMembershipAndCascadeEvents(membership);
+        return Ok(new { message = "Ви вийшли зі спільноти. Майбутні реєстрації на події клубу скасовано." });
+    }
+
+    [Authorize(Roles = "Organizer,Moderator")]
+    [HttpPost("{id:int}/memberships/{membershipId:int}/review")]
+    public async Task<IActionResult> ReviewMembership(int id, int membershipId, ReviewMembershipRequest req)
+    {
+        var userId = CurrentUserId!.Value;
+        var community = await _db.Communities.FindAsync(id);
+        if (community == null) return NotFound();
+
+        if (community.OrganizerId != userId && CurrentUserRole != nameof(UserRole.Moderator))
+            return Forbid();
+
+        var membership = await _db.Memberships.FirstOrDefaultAsync(m => m.Id == membershipId && m.CommunityId == id);
+        if (membership == null) return NotFound();
+
+        membership.Status = req.Approve ? MembershipStatus.Approved : MembershipStatus.Rejected;
+        membership.UpdatedAt = DateTime.UtcNow;
+        await _db.SaveChangesAsync();
+
+        return Ok(new { status = membership.Status.ToString() });
+    }
+
+    [Authorize(Roles = "Organizer,Moderator")]
+    [HttpPost("{id:int}/memberships/{membershipId:int}/revoke")]
+    public async Task<IActionResult> RevokeMembership(int id, int membershipId)
+    {
+        var userId = CurrentUserId!.Value;
+        var community = await _db.Communities.FindAsync(id);
+        if (community == null) return NotFound();
+
+        if (community.OrganizerId != userId && CurrentUserRole != nameof(UserRole.Moderator))
+            return Forbid();
+
+        var membership = await _db.Memberships.FirstOrDefaultAsync(m => m.Id == membershipId && m.CommunityId == id);
+        if (membership == null) return NotFound();
+
+        await RevokeMembershipAndCascadeEvents(membership);
+        return Ok(new { message = "Членство відкликано, доступ до закритих матеріалів закрито." });
+    }
+
+    [Authorize(Roles = "Moderator")]
+    [HttpPost("{id:int}/block")]
+    public async Task<IActionResult> ToggleBlock(int id, [FromBody] bool block)
+    {
+        var community = await _db.Communities.FindAsync(id);
+        if (community == null) return NotFound();
+        community.IsBlocked = block;
+        await _db.SaveChangesAsync();
+        return Ok(new { community.IsBlocked });
+    }
+
+    // Бізнес-правило Варіанту 14: при виході/відкликанні членства скасовуємо майбутні реєстрації та просуваємо чергу
+    private async Task RevokeMembershipAndCascadeEvents(Membership membership)
+    {
+        using var tx = await _db.Database.BeginTransactionAsync();
+
+        membership.Status = MembershipStatus.Revoked;
+        membership.UpdatedAt = DateTime.UtcNow;
+
+        var futureRegs = await _db.EventRegistrations
+            .Include(r => r.Event)
+            .Where(r => r.UserId == membership.UserId
+                        && r.Event!.CommunityId == membership.CommunityId
+                        && r.Event.StartsAt > DateTime.UtcNow
+                        && r.Status != RegistrationStatus.Cancelled)
+            .ToListAsync();
+
+        foreach (var reg in futureRegs)
+        {
+            var wasConfirmed = reg.Status == RegistrationStatus.Confirmed;
+            reg.Status = RegistrationStatus.Cancelled;
+            reg.UpdatedAt = DateTime.UtcNow;
+
+            if (wasConfirmed)
+            {
+                var nextInWaitlist = await _db.EventRegistrations
+                    .Where(r => r.EventId == reg.EventId && r.Status == RegistrationStatus.Waitlisted)
+                    .OrderBy(r => r.RegisteredAt)
+                    .FirstOrDefaultAsync();
+
+                if (nextInWaitlist != null)
+                {
+                    nextInWaitlist.Status = RegistrationStatus.Confirmed;
+                    nextInWaitlist.UpdatedAt = DateTime.UtcNow;
+                }
+            }
+        }
+
+        await _db.SaveChangesAsync();
+        await tx.CommitAsync();
+    }
+}
+
+
+==================== FILE: Server\Controllers\EventsController.cs ====================
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Server.Data;
+using Server.Models;
+
+namespace Server.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class EventsController : ControllerBase
+{
+    private readonly AppDbContext _db;
+
+    public EventsController(AppDbContext db) => _db = db;
+
+    private int? CurrentUserId => int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out var id) ? id : null;
+    private string? CurrentUserRole => User.FindFirstValue(ClaimTypes.Role);
+
+    [HttpGet]
+    public async Task<IActionResult> GetCalendar([FromQuery] int? communityId, [FromQuery] DateTime? fromDate)
+    {
+        var userId = CurrentUserId;
+        var isModerator = CurrentUserRole == nameof(UserRole.Moderator);
+
+        var approvedCommunityIds = userId.HasValue
+            ? await _db.Memberships
+                .Where(m => m.UserId == userId.Value && m.Status == MembershipStatus.Approved)
+                .Select(m => m.CommunityId)
+                .ToListAsync()
+            : new List<int>();
+
+        var organizedCommunityIds = userId.HasValue
+            ? await _db.Communities
+                .Where(c => c.OrganizerId == userId.Value)
+                .Select(c => c.Id)
+                .ToListAsync()
+            : new List<int>();
+
+        var query = _db.Events
+            .Include(e => e.Community)
+            .Include(e => e.Registrations)
+            .Where(e => !e.Community!.IsBlocked)
+            .AsQueryable();
+
+        if (communityId.HasValue)
+            query = query.Where(e => e.CommunityId == communityId.Value);
+
+        if (fromDate.HasValue)
+            query = query.Where(e => e.StartsAt >= fromDate.Value);
+
+        var events = await query.OrderBy(e => e.StartsAt).ToListAsync();
+
+        var result = events
+            .Where(e => !e.IsPrivateForMembersOnly
+                        || isModerator
+                        || approvedCommunityIds.Contains(e.CommunityId)
+                        || organizedCommunityIds.Contains(e.CommunityId))
+            .Select(e =>
+            {
+                var confirmedCount = e.Registrations.Count(r => r.Status == RegistrationStatus.Confirmed);
+                var waitlistCount = e.Registrations.Count(r => r.Status == RegistrationStatus.Waitlisted);
+                var myReg = userId.HasValue ? e.Registrations.FirstOrDefault(r => r.UserId == userId.Value) : null;
+
+                return new
+                {
+                    e.Id,
+                    e.CommunityId,
+                    CommunityName = e.Community?.Name,
+                    e.Title,
+                    e.Description,
+                    e.Location,
+                    e.StartsAt,
+                    e.MaxCapacity,
+                    ConfirmedCount = confirmedCount,
+                    WaitlistCount = waitlistCount,
+                    AvailableSeats = Math.Max(0, e.MaxCapacity - confirmedCount),
+                    e.IsPrivateForMembersOnly,
+                    MyRegistrationStatus = myReg?.Status.ToString()
+                };
+            });
+
+        return Ok(result);
+    }
+
+    [Authorize]
+    [HttpGet("my")]
+    public async Task<IActionResult> GetMyRegistrations()
+    {
+        var userId = CurrentUserId!.Value;
+        var regs = await _db.EventRegistrations
+            .Include(r => r.Event).ThenInclude(e => e!.Community)
+            .Where(r => r.UserId == userId && r.Status != RegistrationStatus.Cancelled)
+            .OrderBy(r => r.Event!.StartsAt)
+            .Select(r => new
+            {
+                r.Id,
+                r.EventId,
+                EventTitle = r.Event!.Title,
+                CommunityName = r.Event.Community!.Name,
+                r.Event.Location,
+                r.Event.StartsAt,
+                Status = r.Status.ToString(),
+                r.RegisteredAt
+            })
+            .ToListAsync();
+
+        return Ok(regs);
+    }
+
+    [Authorize(Roles = "Organizer,Moderator")]
+    [HttpPost]
+    public async Task<IActionResult> Create(CreateEventRequest req)
+    {
+        var userId = CurrentUserId!.Value;
+        var community = await _db.Communities.FindAsync(req.CommunityId);
+        if (community == null) return NotFound(new { message = "Спільноту не знайдено." });
+
+        if (community.OrganizerId != userId && CurrentUserRole != nameof(UserRole.Moderator))
+            return Forbid();
+
+        if (req.StartsAt <= DateTime.UtcNow)
+            return BadRequest(new { message = "Дата події повинна бути в майбутньому." });
+
+        var ev = new ClubEvent
+        {
+            CommunityId = req.CommunityId,
+            Title = req.Title.Trim(),
+            Description = req.Description.Trim(),
+            Location = req.Location.Trim(),
+            StartsAt = req.StartsAt,
+            MaxCapacity = req.MaxCapacity,
+            IsPrivateForMembersOnly = req.IsPrivateForMembersOnly
+        };
+
+        _db.Events.Add(ev);
+        await _db.SaveChangesAsync();
+
+        return Ok(new { ev.Id, ev.Title });
+    }
+
+    // Атомарна реєстрація з підтримкою списку очікування (Waitlist)
+    [Authorize]
+    [HttpPost("{id:int}/register")]
+    public async Task<IActionResult> RegisterForEvent(int id)
+    {
+        var userId = CurrentUserId!.Value;
+
+        using var tx = await _db.Database.BeginTransactionAsync();
+
+        var ev = await _db.Events
+            .Include(e => e.Community)
+            .Include(e => e.Registrations)
+            .FirstOrDefaultAsync(e => e.Id == id);
+
+        if (ev == null || ev.Community!.IsBlocked)
+            return NotFound(new { message = "Подію не знайдено." });
+
+        if (ev.StartsAt <= DateTime.UtcNow)
+            return BadRequest(new { message = "Реєстрацію закрито: подія вже розпочалася." });
+
+        // Перевірка членства в спільноті
+        var isOrganizer = ev.Community.OrganizerId == userId;
+        var isMember = await _db.Memberships.AnyAsync(m =>
+            m.CommunityId == ev.CommunityId && m.UserId == userId && m.Status == MembershipStatus.Approved);
+
+        if (!isOrganizer && !isMember)
+            return StatusCode(403, new { message = "Реєстрація доступна лише чинним учасникам цієї спільноти." });
+
+        var existing = ev.Registrations.FirstOrDefault(r => r.UserId == userId);
+        if (existing != null && existing.Status != RegistrationStatus.Cancelled)
+            return Conflict(new { message = $"Ви вже зареєстровані (статус: {existing.Status})." });
+
+        var confirmedCount = ev.Registrations.Count(r => r.Status == RegistrationStatus.Confirmed);
+        var assignedStatus = confirmedCount < ev.MaxCapacity
+            ? RegistrationStatus.Confirmed
+            : RegistrationStatus.Waitlisted;
+
+        if (existing != null)
+        {
+            existing.Status = assignedStatus;
+            existing.RegisteredAt = DateTime.UtcNow;
+            existing.UpdatedAt = DateTime.UtcNow;
+        }
+        else
+        {
+            _db.EventRegistrations.Add(new EventRegistration
+            {
+                EventId = id,
+                UserId = userId,
+                Status = assignedStatus
+            });
+        }
+
+        await _db.SaveChangesAsync();
+        await tx.CommitAsync();
+
+        var msg = assignedStatus == RegistrationStatus.Confirmed
+            ? "Ви успішно зареєстровані на подію!"
+            : "Вільних місць немає. Вас додано до списку очікування (Waitlist).";
+
+        return Ok(new { status = assignedStatus.ToString(), message = msg });
+    }
+
+    // Скасування участі з автоматичним переведенням першого зі списку очікування
+    [Authorize]
+    [HttpPost("{id:int}/cancel")]
+    public async Task<IActionResult> CancelRegistration(int id)
+    {
+        var userId = CurrentUserId!.Value;
+
+        using var tx = await _db.Database.BeginTransactionAsync();
+
+        var reg = await _db.EventRegistrations
+            .FirstOrDefaultAsync(r => r.EventId == id && r.UserId == userId && r.Status != RegistrationStatus.Cancelled);
+
+        if (reg == null)
+            return NotFound(new { message = "Активну реєстрацію не знайдено." });
+
+        var wasConfirmed = reg.Status == RegistrationStatus.Confirmed;
+        reg.Status = RegistrationStatus.Cancelled;
+        reg.UpdatedAt = DateTime.UtcNow;
+
+        bool promotedSomeone = false;
+        if (wasConfirmed)
+        {
+            var nextInLine = await _db.EventRegistrations
+                .Where(r => r.EventId == id && r.Status == RegistrationStatus.Waitlisted)
+                .OrderBy(r => r.RegisteredAt)
+                .FirstOrDefaultAsync();
+
+            if (nextInLine != null)
+            {
+                nextInLine.Status = RegistrationStatus.Confirmed;
+                nextInLine.UpdatedAt = DateTime.UtcNow;
+                promotedSomeone = true;
+            }
+        }
+
+        await _db.SaveChangesAsync();
+        await tx.CommitAsync();
+
+        return Ok(new
+        {
+            message = promotedSomeone
+                ? "Реєстрацію скасовано. Звільнене місце автоматично передано першому учаснику зі списку очікування."
+                : "Вашу реєстрацію скасовано."
+        });
+    }
+}
+
+
+==================== FILE: Server\Controllers\PostsController.cs ====================
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Server.Data;
+using Server.Models;
+
+namespace Server.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class PostsController : ControllerBase
+{
+    private readonly AppDbContext _db;
+
+    public PostsController(AppDbContext db) => _db = db;
+
+    private int? CurrentUserId => int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out var id) ? id : null;
+    private string? CurrentUserRole => User.FindFirstValue(ClaimTypes.Role);
+
+    [HttpGet("community/{communityId:int}")]
+    public async Task<IActionResult> GetCommunityPosts(int communityId)
+    {
+        var userId = CurrentUserId;
+        var isModerator = CurrentUserRole == nameof(UserRole.Moderator);
+
+        var community = await _db.Communities.FindAsync(communityId);
+        if (community == null || (community.IsBlocked && !isModerator))
+            return NotFound(new { message = "Спільноту не знайдено." });
+
+        var isOrganizer = userId.HasValue && community.OrganizerId == userId.Value;
+        var isApprovedMember = userId.HasValue && await _db.Memberships.AnyAsync(m =>
+            m.CommunityId == communityId && m.UserId == userId.Value && m.Status == MembershipStatus.Approved);
+
+        var hasPrivateAccess = isOrganizer || isApprovedMember || isModerator;
+
+        // Якщо спільнота закрита і користувач не учасник — жорстка відмова 403
+        if (community.IsPrivate && !hasPrivateAccess)
+            return StatusCode(403, new { message = "Доступ заборонено. Це закрита спільнота лише для чинних учасників." });
+
+        var query = _db.Posts
+            .Include(p => p.Author)
+            .Where(p => p.CommunityId == communityId);
+
+        if (!hasPrivateAccess)
+            query = query.Where(p => !p.IsMembersOnly);
+
+        if (!isModerator)
+            query = query.Where(p => !p.IsHiddenByModerator);
+
+        var posts = await query.OrderByDescending(p => p.CreatedAt).Select(p => new
+        {
+            p.Id,
+            p.Title,
+            p.Content,
+            p.IsMembersOnly,
+            p.IsHiddenByModerator,
+            p.ModerationReason,
+            AuthorName = p.Author!.FullName,
+            p.CreatedAt
+        }).ToListAsync();
+
+        return Ok(posts);
+    }
+
+    // Прямий доступ до окремої публікації (для тестування захисту за прямою адресою)
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetPostById(int id)
+    {
+        var userId = CurrentUserId;
+        var isModerator = CurrentUserRole == nameof(UserRole.Moderator);
+
+        var post = await _db.Posts
+            .Include(p => p.Community)
+            .Include(p => p.Author)
+            .FirstOrDefaultAsync(p => p.Id == id);
+
+        if (post == null || (post.IsHiddenByModerator && !isModerator))
+            return NotFound(new { message = "Публікацію не знайдено." });
+
+        if (post.Community!.IsPrivate || post.IsMembersOnly)
+        {
+            var isOrganizer = userId.HasValue && post.Community.OrganizerId == userId.Value;
+            var isMember = userId.HasValue && await _db.Memberships.AnyAsync(m =>
+                m.CommunityId == post.CommunityId && m.UserId == userId.Value && m.Status == MembershipStatus.Approved);
+
+            if (!isOrganizer && !isMember && !isModerator)
+                return StatusCode(403, new { message = "Доступ до закритої публікації заборонено." });
+        }
+
+        return Ok(new
+        {
+            post.Id,
+            post.CommunityId,
+            post.Title,
+            post.Content,
+            post.IsMembersOnly,
+            AuthorName = post.Author?.FullName,
+            post.CreatedAt
+        });
+    }
+
+    [Authorize]
+    [HttpPost]
+    public async Task<IActionResult> Create(CreatePostRequest req)
+    {
+        var userId = CurrentUserId!.Value;
+        var community = await _db.Communities.FindAsync(req.CommunityId);
+        if (community == null) return NotFound();
+
+        var isOrganizer = community.OrganizerId == userId;
+        var isMember = await _db.Memberships.AnyAsync(m =>
+            m.CommunityId == req.CommunityId && m.UserId == userId && m.Status == MembershipStatus.Approved);
+
+        if (!isOrganizer && !isMember)
+            return StatusCode(403, new { message = "Публікувати дописи можуть лише учасники спільноти." });
+
+        var post = new CommunityPost
+        {
+            CommunityId = req.CommunityId,
+            AuthorId = userId,
+            Title = req.Title.Trim(),
+            Content = req.Content.Trim(),
+            IsMembersOnly = community.IsPrivate || req.IsMembersOnly
+        };
+
+        _db.Posts.Add(post);
+        await _db.SaveChangesAsync();
+
+        return Ok(new { post.Id, post.Title });
+    }
+
+    [Authorize(Roles = "Moderator")]
+    [HttpPost("{id:int}/moderate")]
+    public async Task<IActionResult> Moderate(int id, ModeratePostRequest req)
+    {
+        var post = await _db.Posts.FindAsync(id);
+        if (post == null) return NotFound();
+
+        if (req.Hide && string.IsNullOrWhiteSpace(req.Reason))
+            return BadRequest(new { message = "Для приховання публікації необхідно вказати причину." });
+
+        post.IsHiddenByModerator = req.Hide;
+        post.ModerationReason = req.Hide ? req.Reason!.Trim() : null;
+        await _db.SaveChangesAsync();
+
+        return Ok(new { post.IsHiddenByModerator, post.ModerationReason });
+    }
+}
+
+
+==================== FILE: Server\Controllers\WeatherForecastController.cs ====================
+using Microsoft.AspNetCore.Mvc;
+
+namespace Server.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class WeatherForecastController : ControllerBase
+{
+    private static readonly string[] Summaries =
+    [
+        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    ];
+
+    [HttpGet(Name = "GetWeatherForecast")]
+    public IEnumerable<WeatherForecast> Get()
+    {
+        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        {
+            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+            TemperatureC = Random.Shared.Next(-20, 55),
+            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+        })
+        .ToArray();
+    }
+}
+
+
+==================== FILE: Server\Data\AppDbContext.cs ====================
+using Microsoft.EntityFrameworkCore;
+using Server.Models;
+
+namespace Server.Data;
+
+public class AppDbContext : DbContext
+{
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+
+    public DbSet<User> Users => Set<User>();
+    public DbSet<Community> Communities => Set<Community>();
+    public DbSet<Membership> Memberships => Set<Membership>();
+    public DbSet<ClubEvent> Events => Set<ClubEvent>();
+    public DbSet<EventRegistration> EventRegistrations => Set<EventRegistration>();
+    public DbSet<CommunityPost> Posts => Set<CommunityPost>();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
+        modelBuilder.Entity<Membership>().HasIndex(m => new { m.CommunityId, m.UserId }).IsUnique();
+        modelBuilder.Entity<EventRegistration>().HasIndex(r => new { r.EventId, r.UserId }).IsUnique();
+        modelBuilder.Entity<Community>()
+            .HasOne(c => c.Organizer)
+            .WithMany()
+            .HasForeignKey(c => c.OrganizerId)
+            .OnDelete(DeleteBehavior.Restrict);
+    }
+}
+
+
+==================== FILE: Server\Data\DbSeeder.cs ====================
+using Server.Models;
+using Server.Services;
+
+namespace Server.Data;
+
+public static class DbSeeder
+{
+    public static void Seed(AppDbContext db)
+    {
+        if (db.Users.Any()) return;
+
+        var org = new User { FullName = "Олена Коваленко", Email = "organizer@club.ua", PasswordHash = PasswordHasher.Hash("Organizer123!"), Role = UserRole.Organizer };
+        var user1 = new User { FullName = "Андрій Мельник", Email = "user@club.ua", PasswordHash = PasswordHasher.Hash("User12345!"), Role = UserRole.Participant };
+        var user2 = new User { FullName = "Марія Шевченко", Email = "maria@club.ua", PasswordHash = PasswordHasher.Hash("User12345!"), Role = UserRole.Participant };
+        var mod = new User { FullName = "Ігор Бондаренко", Email = "moderator@club.ua", PasswordHash = PasswordHasher.Hash("Moderator123!"), Role = UserRole.Moderator };
+
+        db.Users.AddRange(org, user1, user2, mod);
+        db.SaveChanges();
+
+        var openClub = new Community
+        {
+            Name = "Одеський IT-клуб розробників",
+            Category = "Технології",
+            Description = "Відкрита спільнота для обміну досвідом у веб-розробці та підготовці до хакатонів.",
+            IsPrivate = false,
+            OrganizerId = org.Id
+        };
+
+        var privateClub = new Community
+        {
+            Name = "Закритий кіноклуб «Кадр»",
+            Category = "Мистецтво",
+            Description = "Закритий клуб поціновувачів авторського кіно. Доступ лише після погодження заявки.",
+            IsPrivate = true,
+            OrganizerId = org.Id
+        };
+
+        var sportClub = new Community
+        {
+            Name = "Біговий клуб «Приморський»",
+            Category = "Спорт",
+            Description = "Ранкові пробіжки вздовж узбережжя та підготовка до забігів.",
+            IsPrivate = false,
+            OrganizerId = org.Id
+        };
+
+        db.Communities.AddRange(openClub, privateClub, sportClub);
+        db.SaveChanges();
+
+        db.Memberships.AddRange(
+            new Membership { CommunityId = openClub.Id, UserId = user1.Id, Status = MembershipStatus.Approved, ApplicationNote = "Цікавлюсь Angular та .NET" },
+            new Membership { CommunityId = privateClub.Id, UserId = user1.Id, Status = MembershipStatus.Pending, ApplicationNote = "Люблю авторське кіно" },
+            new Membership { CommunityId = privateClub.Id, UserId = user2.Id, Status = MembershipStatus.Approved, ApplicationNote = "Постійна учасниця" }
+        );
+
+        var ev1 = new ClubEvent
+        {
+            CommunityId = openClub.Id,
+            Title = "Воркшоп: Архітектура веб-застосунків",
+            Description = "Практичний розбір REST API, транзакцій та захисту даних.",
+            Location = "м. Одеса, пр-т Шевченка, 1",
+            StartsAt = DateTime.UtcNow.AddDays(5),
+            MaxCapacity = 1,
+            IsPrivateForMembersOnly = false
+        };
+
+        var ev2 = new ClubEvent
+        {
+            CommunityId = privateClub.Id,
+            Title = "Закритий кінопоказ та обговорення",
+            Description = "Зустріч учасників клубу з обговоренням стрічки.",
+            Location = "м. Одеса, вул. Дерибасівська, 14",
+            StartsAt = DateTime.UtcNow.AddDays(8),
+            MaxCapacity = 15,
+            IsPrivateForMembersOnly = true
+        };
+
+        db.Events.AddRange(ev1, ev2);
+        db.SaveChanges();
+
+        db.EventRegistrations.Add(new EventRegistration { EventId = ev1.Id, UserId = user2.Id, Status = RegistrationStatus.Confirmed });
+
+        db.Posts.AddRange(
+            new CommunityPost { CommunityId = openClub.Id, AuthorId = org.Id, Title = "Анонс весняного сезону", Content = "Вітаємо! Цього місяця проводимо серію воркшопів по веброзробці.", IsMembersOnly = false },
+            new CommunityPost { CommunityId = privateClub.Id, AuthorId = org.Id, Title = "Секретний пароль для входу на показ", Content = "Код доступу до внутрішнього чату та локації: KADR-2026.", IsMembersOnly = true }
+        );
+        db.SaveChanges();
+    }
+}
+
+
+==================== FILE: Server\Models\Dtos.cs ====================
+using System.ComponentModel.DataAnnotations;
+
+namespace Server.Models;
+
+public record RegisterRequest(
+    [Required, MaxLength(100)] string FullName,
+    [Required, EmailAddress] string Email,
+    [Required, MinLength(8), MaxLength(64)] string Password,
+    UserRole Role
+);
+
+public record LoginRequest([Required, EmailAddress] string Email, [Required] string Password);
+public record AuthResponse(string Token, int UserId, string FullName, string Email, string Role);
+
+public record CreateCommunityRequest(
+    [Required, MaxLength(120)] string Name,
+    [Required, MaxLength(60)] string Category,
+    [Required, MaxLength(1000)] string Description,
+    bool IsPrivate
+);
+
+public record JoinCommunityRequest([MaxLength(300)] string? ApplicationNote);
+public record ReviewMembershipRequest(bool Approve);
+
+public record CreateEventRequest(
+    int CommunityId,
+    [Required, MaxLength(150)] string Title,
+    [Required, MaxLength(1500)] string Description,
+    [Required, MaxLength(200)] string Location,
+    DateTime StartsAt,
+    [Range(1, 5000)] int MaxCapacity,
+    bool IsPrivateForMembersOnly
+);
+
+public record CreatePostRequest(
+    int CommunityId,
+    [Required, MaxLength(160)] string Title,
+    [Required, MaxLength(4000)] string Content,
+    bool IsMembersOnly
+);
+
+public record ModeratePostRequest(bool Hide, [MaxLength(300)] string? Reason);
+
+
+==================== FILE: Server\Models\Entities.cs ====================
+using System.ComponentModel.DataAnnotations;
+
+namespace Server.Models;
+
+public enum UserRole { Participant = 0, Organizer = 1, Moderator = 2 }
+public enum MembershipStatus { Pending = 0, Approved = 1, Rejected = 2, Revoked = 3 }
+public enum RegistrationStatus { Confirmed = 0, Waitlisted = 1, Cancelled = 2 }
+
+public class User
+{
+    public int Id { get; set; }
+    [Required, MaxLength(100)] public string FullName { get; set; } = string.Empty;
+    [Required, EmailAddress, MaxLength(150)] public string Email { get; set; } = string.Empty;
+    [Required] public string PasswordHash { get; set; } = string.Empty;
+    public UserRole Role { get; set; } = UserRole.Participant;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+    public ICollection<Membership> Memberships { get; set; } = new List<Membership>();
+    public ICollection<EventRegistration> Registrations { get; set; } = new List<EventRegistration>();
+}
+
+public class Community
+{
+    public int Id { get; set; }
+    [Required, MaxLength(120)] public string Name { get; set; } = string.Empty;
+    [Required, MaxLength(60)] public string Category { get; set; } = string.Empty;
+    [Required, MaxLength(1000)] public string Description { get; set; } = string.Empty;
+    public bool IsPrivate { get; set; }
+    public bool IsBlocked { get; set; }
+    public int OrganizerId { get; set; }
+    public User? Organizer { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+    public ICollection<Membership> Memberships { get; set; } = new List<Membership>();
+    public ICollection<ClubEvent> Events { get; set; } = new List<ClubEvent>();
+    public ICollection<CommunityPost> Posts { get; set; } = new List<CommunityPost>();
+}
+
+public class Membership
+{
+    public int Id { get; set; }
+    public int CommunityId { get; set; }
+    public Community? Community { get; set; }
+    public int UserId { get; set; }
+    public User? User { get; set; }
+    public MembershipStatus Status { get; set; } = MembershipStatus.Pending;
+    [MaxLength(300)] public string? ApplicationNote { get; set; }
+    public DateTime RequestedAt { get; set; } = DateTime.UtcNow;
+    public DateTime? UpdatedAt { get; set; }
+}
+
+public class ClubEvent
+{
+    public int Id { get; set; }
+    public int CommunityId { get; set; }
+    public Community? Community { get; set; }
+    [Required, MaxLength(150)] public string Title { get; set; } = string.Empty;
+    [Required, MaxLength(1500)] public string Description { get; set; } = string.Empty;
+    [Required, MaxLength(200)] public string Location { get; set; } = string.Empty;
+    public DateTime StartsAt { get; set; }
+    [Range(1, 5000)] public int MaxCapacity { get; set; }
+    public bool IsPrivateForMembersOnly { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+    public ICollection<EventRegistration> Registrations { get; set; } = new List<EventRegistration>();
+}
+
+public class EventRegistration
+{
+    public int Id { get; set; }
+    public int EventId { get; set; }
+    public ClubEvent? Event { get; set; }
+    public int UserId { get; set; }
+    public User? User { get; set; }
+    public RegistrationStatus Status { get; set; } = RegistrationStatus.Confirmed;
+    public DateTime RegisteredAt { get; set; } = DateTime.UtcNow;
+    public DateTime? UpdatedAt { get; set; }
+}
+
+public class CommunityPost
+{
+    public int Id { get; set; }
+    public int CommunityId { get; set; }
+    public Community? Community { get; set; }
+    public int AuthorId { get; set; }
+    public User? Author { get; set; }
+    [Required, MaxLength(160)] public string Title { get; set; } = string.Empty;
+    [Required, MaxLength(4000)] public string Content { get; set; } = string.Empty;
+    public bool IsMembersOnly { get; set; }
+    public bool IsHiddenByModerator { get; set; }
+    [MaxLength(300)] public string? ModerationReason { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+}
+
+
+==================== FILE: Server\Properties\launchSettings.json ====================
+{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "http://localhost:5000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
+
+
+==================== FILE: Server\Services\PasswordHasher.cs ====================
+using System.Security.Cryptography;
+
+namespace Server.Services;
+
+public static class PasswordHasher
+{
+    public static string Hash(string password)
+    {
+        byte[] salt = RandomNumberGenerator.GetBytes(16);
+        byte[] hash = Rfc2898DeriveBytes.Pbkdf2(password, salt, 100_000, HashAlgorithmName.SHA256, 32);
+        return $"{Convert.ToBase64String(salt)}.{Convert.ToBase64String(hash)}";
+    }
+
+    public static bool Verify(string password, string storedHash)
+    {
+        var parts = storedHash.Split('.');
+        if (parts.Length != 2) return false;
+        byte[] salt = Convert.FromBase64String(parts[0]);
+        byte[] expected = Convert.FromBase64String(parts[1]);
+        byte[] actual = Rfc2898DeriveBytes.Pbkdf2(password, salt, 100_000, HashAlgorithmName.SHA256, 32);
+        return CryptographicOperations.FixedTimeEquals(actual, expected);
+    }
+}
+
+
+==================== FILE: Server.Tests\PlatformTests.cs ====================
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
+using Server.Data;
+using Server.Models;
+using Server.Services;
+using Xunit;
+
+namespace Server.Tests;
+
+public class PlatformTests : IDisposable
+{
+    private readonly SqliteConnection _connection;
+    private readonly AppDbContext _db;
+
+    public PlatformTests()
+    {
+        _connection = new SqliteConnection("DataSource=:memory:");
+        _connection.Open();
+
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseSqlite(_connection)
+            .Options;
+
+        _db = new AppDbContext(options);
+        _db.Database.EnsureCreated();
+    }
+
+    public void Dispose()
+    {
+        _db.Dispose();
+        _connection.Dispose();
+    }
+
+    [Fact]
+    public void PasswordHasher_ShouldVerifyValidPasswordAndRejectWrong()
+    {
+        var hash = PasswordHasher.Hash("StrongPass123!");
+        Assert.True(PasswordHasher.Verify("StrongPass123!", hash));
+        Assert.False(PasswordHasher.Verify("WrongPass123!", hash));
+    }
+
+    [Fact]
+    public async Task PrivateCommunity_JoinCreatesPendingRequest_AndApprovalGrantsAccess()
+    {
+        var organizer = new User { FullName = "РћР»РµРЅР°", Email = "org@test.ua", PasswordHash = "x", Role = UserRole.Organizer };
+        var member = new User { FullName = "РђРЅРґСЂС–Р№", Email = "user@test.ua", PasswordHash = "x", Role = UserRole.Participant };
+        _db.Users.AddRange(organizer, member);
+        await _db.SaveChangesAsync();
+
+        var club = new Community { Name = "РљС–РЅРѕРєР»СѓР±", Category = "РњРёСЃС‚РµС†С‚РІРѕ", Description = "РћРїРёСЃ", IsPrivate = true, OrganizerId = organizer.Id };
+        _db.Communities.Add(club);
+        await _db.SaveChangesAsync();
+
+        var membership = new Membership { CommunityId = club.Id, UserId = member.Id, Status = MembershipStatus.Pending };
+        _db.Memberships.Add(membership);
+        await _db.SaveChangesAsync();
+
+        Assert.Equal(MembershipStatus.Pending, membership.Status);
+
+        membership.Status = MembershipStatus.Approved;
+        await _db.SaveChangesAsync();
+
+        var isApproved = await _db.Memberships.AnyAsync(m => m.CommunityId == club.Id && m.UserId == member.Id && m.Status == MembershipStatus.Approved);
+        Assert.True(isApproved);
+    }
+
+    [Fact]
+    public async Task EventRegistration_WhenCapacityFull_ShouldPlaceUserInWaitlistAndPromoteOnCancel()
+    {
+        var org = new User { FullName = "РћСЂРі", Email = "o@t.ua", PasswordHash = "x", Role = UserRole.Organizer };
+        var u1 = new User { FullName = "РЈ1", Email = "u1@t.ua", PasswordHash = "x", Role = UserRole.Participant };
+        var u2 = new User { FullName = "РЈ2", Email = "u2@t.ua", PasswordHash = "x", Role = UserRole.Participant };
+        _db.Users.AddRange(org, u1, u2);
+        await _db.SaveChangesAsync();
+
+        var club = new Community { Name = "IT", Category = "РўРµС…РЅРѕР»РѕРіС–С—", Description = "РћРїРёСЃ", IsPrivate = false, OrganizerId = org.Id };
+        _db.Communities.Add(club);
+        await _db.SaveChangesAsync();
+
+        var ev = new ClubEvent
+        {
+            CommunityId = club.Id,
+            Title = "Р’РѕСЂРєС€РѕРї",
+            Description = "РўРµСЃС‚",
+            Location = "РћРґРµСЃР°",
+            StartsAt = DateTime.UtcNow.AddDays(3),
+            MaxCapacity = 1
+        };
+        _db.Events.Add(ev);
+        await _db.SaveChangesAsync();
+
+        var reg1 = new EventRegistration { EventId = ev.Id, UserId = u1.Id, Status = RegistrationStatus.Confirmed, RegisteredAt = DateTime.UtcNow };
+        var reg2 = new EventRegistration { EventId = ev.Id, UserId = u2.Id, Status = RegistrationStatus.Waitlisted, RegisteredAt = DateTime.UtcNow.AddSeconds(1) };
+        _db.EventRegistrations.AddRange(reg1, reg2);
+        await _db.SaveChangesAsync();
+
+        // РЎРєР°СЃСѓРІР°РЅРЅСЏ РїРµСЂС€РѕС— СЂРµС”СЃС‚СЂР°С†С–С— С‚Р° РїСЂРѕСЃСѓРІР°РЅРЅСЏ Р· С‡РµСЂРіРё РѕС‡С–РєСѓРІР°РЅРЅСЏ
+        reg1.Status = RegistrationStatus.Cancelled;
+        var nextInLine = await _db.EventRegistrations
+            .Where(r => r.EventId == ev.Id && r.Status == RegistrationStatus.Waitlisted)
+            .OrderBy(r => r.RegisteredAt)
+            .FirstOrDefaultAsync();
+
+        Assert.NotNull(nextInLine);
+        nextInLine!.Status = RegistrationStatus.Confirmed;
+        await _db.SaveChangesAsync();
+
+        Assert.Equal(RegistrationStatus.Confirmed, reg2.Status);
+    }
+
+    [Fact]
+    public async Task RevokingMembership_ShouldCancelFutureCommunityEventRegistrations()
+    {
+        var org = new User { FullName = "РћСЂРі", Email = "o2@t.ua", PasswordHash = "x", Role = UserRole.Organizer };
+        var user = new User { FullName = "РЈС‡Р°СЃРЅРёРє", Email = "u@t.ua", PasswordHash = "x", Role = UserRole.Participant };
+        _db.Users.AddRange(org, user);
+        await _db.SaveChangesAsync();
+
+        var club = new Community { Name = "РљР»СѓР±", Category = "РЎРїРѕСЂС‚", Description = "РћРїРёСЃ", IsPrivate = true, OrganizerId = org.Id };
+        _db.Communities.Add(club);
+        await _db.SaveChangesAsync();
+
+        var membership = new Membership { CommunityId = club.Id, UserId = user.Id, Status = MembershipStatus.Approved };
+        var ev = new ClubEvent { CommunityId = club.Id, Title = "Р—Р°Р±С–Рі", Description = "РћРїРёСЃ", Location = "РўСЂР°СЃР° Р·РґРѕСЂРѕРІ'СЏ", StartsAt = DateTime.UtcNow.AddDays(2), MaxCapacity = 10 };
+        _db.Memberships.Add(membership);
+        _db.Events.Add(ev);
+        await _db.SaveChangesAsync();
+
+        var reg = new EventRegistration { EventId = ev.Id, UserId = user.Id, Status = RegistrationStatus.Confirmed };
+        _db.EventRegistrations.Add(reg);
+        await _db.SaveChangesAsync();
+
+        // Р’С–РґРєР»РёРєР°РЅРЅСЏ С‡Р»РµРЅСЃС‚РІР°
+        membership.Status = MembershipStatus.Revoked;
+        var futureRegs = await _db.EventRegistrations
+            .Include(r => r.Event)
+            .Where(r => r.UserId == user.Id && r.Event!.CommunityId == club.Id && r.Event.StartsAt > DateTime.UtcNow)
+            .ToListAsync();
+        futureRegs.ForEach(r => r.Status = RegistrationStatus.Cancelled);
+        await _db.SaveChangesAsync();
+
+        Assert.Equal(RegistrationStatus.Cancelled, reg.Status);
+    }
+
+    [Fact]
+    public async Task Moderator_HidingPost_ShouldPersistReason()
+    {
+        var org = new User { FullName = "РћСЂРі", Email = "o3@t.ua", PasswordHash = "x", Role = UserRole.Organizer };
+        _db.Users.Add(org);
+        await _db.SaveChangesAsync();
+
+        var club = new Community { Name = "РљР»СѓР±", Category = "РўРµС…РЅРѕР»РѕРіС–С—", Description = "РћРїРёСЃ", OrganizerId = org.Id };
+        _db.Communities.Add(club);
+        await _db.SaveChangesAsync();
+
+        var post = new CommunityPost { CommunityId = club.Id, AuthorId = org.Id, Title = "РЎРїР°Рј", Content = "Р РµРєР»Р°РјР°" };
+        _db.Posts.Add(post);
+        await _db.SaveChangesAsync();
+
+        post.IsHiddenByModerator = true;
+        post.ModerationReason = "РџРѕСЂСѓС€РµРЅРЅСЏ РїСЂР°РІРёР» СЃРїС–Р»СЊРЅРѕС‚Рё (СЂРµРєР»Р°РјР°)";
+        await _db.SaveChangesAsync();
+
+        var saved = await _db.Posts.FindAsync(post.Id);
+        Assert.True(saved!.IsHiddenByModerator);
+        Assert.Equal("РџРѕСЂСѓС€РµРЅРЅСЏ РїСЂР°РІРёР» СЃРїС–Р»СЊРЅРѕС‚Рё (СЂРµРєР»Р°РјР°)", saved.ModerationReason);
+    }
+}
+
+==================== FILE: Server.Tests\Server.Tests.csproj ====================
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Server\Server.csproj" />
+  </ItemGroup>
+
+</Project>
+
